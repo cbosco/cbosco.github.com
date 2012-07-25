@@ -1,0 +1,13 @@
+{
+
+	"year":		2008,
+	"title":	"OpenBox",
+	"summary":	"Popup plugin for MooTools",
+	"images":	[
+		"openbox-preview.png",
+		"openbox.png"
+	],
+	"url":	"http://chrisbosco.com/openbox/"
+
+}
+

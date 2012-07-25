@@ -1,0 +1,12 @@
+{
+
+	"year":		2007,
+	"title":	"iCIMS Talent Platform",
+	"summary":	"Web app with tools to manage candidates and employees",
+	"images":	[
+		"icims-preview.png",
+		"icims-search.png",
+		"icims-dashboard.png"
+	]
+
+}
