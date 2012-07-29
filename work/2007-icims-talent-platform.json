@@ -4,9 +4,18 @@
 	"title":	"iCIMS Talent Platform",
 	"summary":	"Web app with tools to manage candidates and employees",
 	"images":	[
-		"icims-preview.png",
 		"icims-search.png",
 		"icims-dashboard.png"
-	]
-
+	],
+	"thumbnail-image":	"icims-preview.png",
+	"roles":	{
+					"design":	[
+									"Interaction design"
+								],
+					"client-side":	[
+									"HTML, JSP",
+									"CSS",
+									"JavaScript, MooTools"
+								]
+				}
 }

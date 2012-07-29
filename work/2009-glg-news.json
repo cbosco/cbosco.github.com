@@ -1,0 +1,30 @@
+{
+
+	"year":		2009,
+	"title":	"GLG News",
+	"summary":	"Content-generation website for subject matter experts",
+	"images":	[
+					"glgnews-write.png",
+					"glgnews-favorites.png"
+				],
+	"thumbnail-image":	"glgnews-preview.png",
+	"related":	[
+
+					{
+						"title":	"Spellcheck HTML Inline with GoogieSpell",
+						"url":		"http://cbsides.com/blog/post/2/Spellcheck-HTML-Inline-with-GoogieSpell"
+					},
+					{
+						"title":	"Spellcheck Rich Text with GoogieSpell",
+						"url":		"http://cbsides.com/blog/post/8/Spellcheck-Rich-Text-with-GoogieSpell"
+					}
+
+				],
+	"roles":	{
+					"client-side":	[
+									"HTML, ASP.NET MVC views",
+									"CSS",
+									"JavaScript, jQuery AJAX"
+								]
+				}
+}

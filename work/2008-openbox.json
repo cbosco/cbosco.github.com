@@ -4,10 +4,17 @@
 	"title":	"OpenBox",
 	"summary":	"Popup plugin for MooTools",
 	"images":	[
-		"openbox-preview.png",
-		"openbox.png"
-	],
-	"url":	"http://chrisbosco.com/openbox/"
-
+					"openbox.png"
+				],
+	"thumbnail-image":	"openbox-preview.png",
+	"url":	"http://chrisbosco.com/openbox/",
+	"roles":	{
+					"design":	[
+									"Visual design"
+								],
+					"client-side":	[
+									"CSS, overridable theme",
+									"JavaScript, MooTools"
+								]
+				}
 }
-

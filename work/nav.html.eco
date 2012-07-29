@@ -1,0 +1,18 @@
+<div id="tray">
+	<nav>
+		<% for project in @projects: %>
+        <a 
+          href="#/explore/<%= project.id %>" 
+          title="<%= project.title %>"
+          data-summary="<%= project.summary %>" 
+          data-year="<%= project.year %>"
+          data-roles="<%= project.rolesString %>"
+        >
+          <img src="../images/work/<%= project['thumbnail-image'] %>" />
+        </a>
+		<% end %>
+      <a class="random" title="Random Project" data-roles="" data-year="" data-summary="">
+        <img src="../images/work/random-box.png" />
+      </a>
+	</nav>
+</div>

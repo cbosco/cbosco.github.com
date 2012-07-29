@@ -1,0 +1,30 @@
+{
+
+	"year":		2010,
+	"title":	"Expert Matters",
+	"summary":	"Drupal theming and module development for an industry analysis site",
+	"images":	[
+					"expert-matters-home.png",
+					"expert-matters-overlay.png",
+					"expert-matters-detail.png"
+				],
+	"thumbnail-image":	"expert-matters-preview.png",
+	"related":	[
+					{
+						"title":	"Clear Primary actions in Drupal",
+						"url":		"http://cbsides.com/blog/post/7/Clear-Primary-Actions-in-Drupal"
+					}
+				],
+	"roles":	{
+					"design":	[
+									"Visual design",
+									"Interaction design"
+								],
+					"client-side":	[
+									"JavaScript, jQuery"
+								],
+					"server-side":	[
+									"Drupal module development"
+								]
+				}
+}

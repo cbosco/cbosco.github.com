@@ -1,0 +1,33 @@
+  <footer>
+    <small>
+      &copy; 2007-2011 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
+    </small>
+  </footer>
+
+
+  </div>
+  <script>
+    var cb = {};
+  </script>
+  
+  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="../javascript/lib/jquery-1.4.4.min.js"><\/script>')</script>
+  <script src="../javascript/lib/jquery.ba-bbq.min.js"></script>
+  <script src="../javascript/lib/jquery.easing.1.3.js"></script>  
+  
+  <script src="../javascript/media.js"></script>
+  <script src="../javascript/route.js"></script>
+  <script src="../javascript/strip.js"></script>
+  <script src="../javascript/tray.js"></script>
+  <script src="../javascript/explore.js"></script>
+
+  
+  <!--[if lt IE 7 ]>
+    <script src="../javascript/lib/dd_belatedpng.js"></script>
+    <script>DD_belatedPNG.fix('#logo a');</script>
+  <![endif]-->
+  
+</body>
+
+</html>

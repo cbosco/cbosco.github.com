@@ -1,0 +1,29 @@
+{
+
+	"year":		2010,
+	"title":	"The Shoshin Project",
+	"summary":	"Multimedia site on a single page with client-side routing",
+	"images":	[
+					"shoshin-edition.png",
+					"shoshin-video-detail.png",
+					"shoshin-article-detail.png"
+				],
+	"thumbnail-image":	"shoshin-preview.png",
+	"url":		"http://theshoshinproject.com/",
+	"related":	[
+					{
+						"title":	"jQuery Effect Sequencer",
+						"url":		"http://cbsides.com/blog/post/10/jQuery-Effect-Sequencer"
+					}
+				],
+	"roles":	{
+					"design":	[
+									"Interaction design prototyping"
+								],
+					"client-side":	[
+									"HTML, jQuery templates",
+									"CSS",
+									"JavaScript, jQuery"
+								]
+				}
+}
