@@ -16,15 +16,24 @@
   <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
   <meta name="copyright" content="copyright 2007-20011 chrisbosco.com">  
   
+  <!--
   <link rel="stylesheet" href="../css/base.css" media="screen" />
   <link rel="stylesheet" href="../css/default.css" media="screen" />
   <link rel="stylesheet" href="../css/desktop.css" media="screen and (min-device-width:1024px)" />
+  -->
   
+
+    <link rel="stylesheet" href="/stylesheets/app.css" type="text/css">
 
  
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 
+  <!-- TODO: separate out modernizr from vendor -->
+  <!--
   <script src="../javascript/lib/modernizr-1.5.min.js"></script>
+  -->
+
+    <script src="/javascripts/vendor/common.js"></script>
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -141,7 +150,7 @@
     var cb = {};
   </script>
   
-  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <!--
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
   <script>!window.jQuery && document.write('<script src="../javascript/lib/jquery-1.4.4.min.js"><\/script>')</script>
   <script src="../javascript/lib/jquery.ba-bbq.min.js"></script>
@@ -152,13 +161,19 @@
   <script src="../javascript/strip.js"></script>
   <script src="../javascript/tray.js"></script>
   <script src="../javascript/explore.js"></script>
+  -->
+    <script src="/javascripts/vendor/spine.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <script>
+	/*
+        var exports = this;
+        $(function(){
+            var App = require("application");
+            exports.app = new App({el: $("body")});
+        });
+	*/
+    </script>
 
-  
-  <!--[if lt IE 7 ]>
-    <script src="../javascript/lib/dd_belatedpng.js"></script>
-    <script>DD_belatedPNG.fix('#logo a');</script>
-  <![endif]-->
-  
 </body>
 
 </html>

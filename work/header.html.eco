@@ -16,15 +16,24 @@
   <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
   <meta name="copyright" content="copyright 2007-20011 chrisbosco.com">  
   
+  <!--
   <link rel="stylesheet" href="../css/base.css" media="screen" />
   <link rel="stylesheet" href="../css/default.css" media="screen" />
   <link rel="stylesheet" href="../css/desktop.css" media="screen and (min-device-width:1024px)" />
+  -->
   
+
+    <link rel="stylesheet" href="/stylesheets/app.css" type="text/css">
 
  
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 
+  <!-- TODO: separate out modernizr from vendor -->
+  <!--
   <script src="../javascript/lib/modernizr-1.5.min.js"></script>
+  -->
+
+    <script src="/javascripts/vendor/common.js"></script>
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
