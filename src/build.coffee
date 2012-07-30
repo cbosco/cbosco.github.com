@@ -96,12 +96,12 @@ payload =	{
 html = ""
 # header (static)
 html += eco.render headerTemplate
+# navigation tray
 html += eco.render navTemplate, payload
-# nav item
-# page item
+# project slides
+html += eco.render slidesTemplate, payload
 # footer (static)
 html += eco.render footerTemplate
-html += eco.render slidesTemplate, payload
 
 # stdout
 console.log html
