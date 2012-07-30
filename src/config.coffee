@@ -1,5 +1,7 @@
 exports.config =
 	# See docs at http://brunch.readthedocs.org/en/latest/config.html.
+	paths:
+		public: '../'
 	files:
 		javascripts:
 			defaultExtension: 'coffee'
