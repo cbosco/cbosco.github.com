@@ -32,7 +32,7 @@ addFileToWorkCollection = (fileName) ->
 	existingItem
 
 	# read file
-	file = fs.readFileSync "#{__dirname}/work/#{fileName}", 'utf8'
+	file = fs.readFileSync "#{__dirname}/work/projects/#{fileName}", 'utf8'
 
 
 	# skip vim swap files
@@ -76,7 +76,7 @@ addFileToWorkCollection = (fileName) ->
 			}
 			work.push newItem
 
-files = fs.readdirSync("work")
+files = fs.readdirSync("work/projects")
 
 work = []
 
@@ -102,6 +102,6 @@ html += eco.render navTemplate, payload
 # footer (static)
 html += eco.render footerTemplate
 html += eco.render slidesTemplate, payload
-#html += eco.render "work/footer.eco"
-#
+
+# stdout
 console.log html
