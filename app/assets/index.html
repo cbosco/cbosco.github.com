@@ -104,8 +104,29 @@
         &copy; 2007-2011 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
       </small>
     </footer>
+
+	<script>
+		var cb = {};
+	</script>
+
+	<!--
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script>!window.jQuery && document.write('<script src="javascript/libs/jquery-1.4.4.min.js"><\/script>')</script>
+	-->
+	<!--
+	<script src="javascript/splash.js"></script>    
+	-->
+    <script src="/javascripts/vendor/spine.js"></script>
+	<script src="/javascripts/app.js"></script>
     
-    
+    <script>
+        var exports = this;
+        $(function(){
+			var Splash = require("views/splash");
+            //var App = require("application");
+            //exports.app = new App({el: $("body")});
+        });
+    </script>
 
   </div>  
   
