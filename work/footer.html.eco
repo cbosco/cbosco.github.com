@@ -23,12 +23,17 @@
   <script src="../javascript/explore.js"></script>
   -->
     <script src="/javascripts/vendor/spine.js"></script>
-	<!--<script src="/javascripts/app.js"></script>-->
+	<script src="/javascripts/app.js"></script>
     <script>
         var exports = this;
         $(function(){
-            var App = require("application");
-            exports.app = new App({el: $("body")});
+			require("views/media");
+			require("views/route");
+			require("views/strip");
+			require("views/tray");
+			require("views/explore");
+            //var App = require("application");
+            //exports.app = new App({el: $("body")});
         });
     </script>
 

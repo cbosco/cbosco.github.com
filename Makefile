@@ -10,5 +10,5 @@ build:
 # for development on the UI
 # runs a simple node server since it needs to be a 
 # static site at localhost root
-watch:
+watch: build
 	./node_modules/.bin/brunch watch --server
