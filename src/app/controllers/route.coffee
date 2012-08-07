@@ -13,7 +13,6 @@ onHashChange = (e) ->
 	newUrl = null
 	handled = false
 
-	console.log "HELLLO DERE"
 	if e
 		newUrl = e.fragment
 	else
