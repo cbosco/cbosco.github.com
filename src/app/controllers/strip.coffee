@@ -117,3 +117,6 @@ init = ->
 	$strip.show()
   
 init()
+
+# Globals
+module?.exports  = cb
