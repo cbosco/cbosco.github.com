@@ -26,3 +26,5 @@ this is mitigated by following Google's AJAX crawling standard and
 providing fallback HTML snapshots of the web pages to search engines.
 The AJAX crawling convention from Google is gaining traction and has
 been implemented by sites such as Twitter and Facebook.
+
+*[Serbo-Croatian](http://science.webhostinggeeks.com/projekat-shoshin) translation available courtesy of Jovana Milutinovich from [WebHostingGeeks.com](http://webhostinggeeks.com/)*
