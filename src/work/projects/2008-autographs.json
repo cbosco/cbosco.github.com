@@ -9,7 +9,7 @@
 					"autographs-start.jpg"
 				],
 	"thumbnail-image":	"autographs-preview.jpg",
-	"url":		"http://chrisbosco.com/autographs/",
+	"url":		"http://projects-chrisbosco.herokuapp.com/autographs/",
 	"roles":	{
 					"design":	[
 									"Visual design",

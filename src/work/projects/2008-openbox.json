@@ -7,7 +7,7 @@
 					"openbox.png"
 				],
 	"thumbnail-image":	"openbox-preview.png",
-	"url":	"http://chrisbosco.com/openbox/",
+	"url":	"http://projects-chrisbosco.herokuapp.com/openbox/",
 	"roles":	{
 					"design":	[
 									"Visual design"
