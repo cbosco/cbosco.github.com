@@ -4,7 +4,8 @@
 	"title":	"CB-Sides",
 	"summary":	"Blog on front-end web development and interaction design",
 	"images":	[
-					"cbsides.png"
+					"cbsides.png",
+					"cbsides-listing.png"
 				],
 	"thumbnail-image":	"cbsides-preview.png",
 	"roles":	{
