@@ -1,9 +1,0 @@
-# OSX
-.DS_Store
-
-# Vim
-*.swp
-*.swo
-
-# Local Node.js NPM modules
-node_modules
