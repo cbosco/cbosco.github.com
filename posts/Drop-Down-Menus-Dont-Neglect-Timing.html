@@ -2,7 +2,7 @@
 <html lang="en" ⚡>
 <head>
     <meta charset="utf-8">
-<link rel="canonical" href="/projects/2009-cbsides/">
+<link rel="canonical" href="/posts/Drop-Down-Menus-Dont-Neglect-Timing.html">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -12,7 +12,7 @@
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 
 
-<title>cbsides</title>
+<title>Drop-Down Menus: Don&#39;t Neglect Timing</title>
 
 <meta name="author" content="Chris Bosco">
 <link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
@@ -66,14 +66,15 @@
     </nav>
 </div>
 
-    
     <div class="row">
         <div class="small-12 columns">
         
             <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
-                <a href="/projects.html">Projects</a>
-                <a class="unavailable" >2009</a>
-                <a class="current">cbsides</a>
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2010-3-29
+                </a>
+                <a class="current">Drop-Down Menus: Don&#39;t Neglect Timing</a>
             </nav>
         
         </div>
@@ -81,176 +82,77 @@
     <div class="heading text-center">
         <div class="row">
             <div class="small-12 columns">
-            
                 <h1>
-                    
-                    cbsides
+                    Drop-Down Menus: Don&#39;t Neglect Timing
                 </h1>
-
-            
             </div>
         </div>
     </div>
 
-    
-        
-
-            <div class="featured texture">
-                <div class="row collapse">
-                    <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
-                        <amp-carousel width=400 height=300 layout=responsive type=slides controls>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides.png">
-                            </a>
-
-                        </div>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides-listing.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides-listing.png">
-                            </a>
-
-                        </div>
-                        
-                        </amp-carousel>
-                    </div>
-                </div>
-            </div>
-
-        
-    
     <div class="row">
-        <div class="small-12 large-7 columns">
-    
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                Accessibility, UI Patterns
+            </h6>
+        </div>
+    </div>
+
 
         
-    
 
+    <div class="row">
+        <div class="small-12 columns">
 
-    <div class="project-summary-detail">
-        <p>My blog covers topics related to front-end web development and design,
-with occasional tutorials and demos. The inspiration comes from the
-helpful niche sites that were indispensable to me in my first years as a
-developer, and I hoped to give back to that community. Crafting every
-post also has the added benefit of coalescing my learnings for my own
-record.</p>
-<p>The blog is custom-built and hand-coded from front to back on the
-<a href="http://codeigniter.com/">CodeIgniter MVC framework</a>. Although I was
-using the MVC pattern at the time for work, building every layer of this
-site (rather than just focusing on the client-side) helped me to fully
-understand it.</p>
-<p>Because CodeIgniter is based on PHP, I&#39;ve found it relatively easy to
-port over plugins from popular platforms like WordPress, such as the
-very useful <a href="http://akismet.com/">Akismet</a>.</p>
+    <div class="project-summary-detail post-detail">
+        <p>I was recently building a &quot;mega menu&quot; (a really big drop-down menu
+panel) for primary navigation, so I decided to re-read the <a href="http://www.useit.com/alertbox/mega-dropdown-menus.html">Jakob
+Nielsen
+Alertbox</a>
+regarding them. Apparently the mega menu is the only form of drop-down
+menu to perform well under user testing.</p>
+<p>In the discussion of timing for the interaction, I was reminded of how
+only a few years ago it seemed that <a href="http://www.alistapart.com/articles/dropdowns/" title="CSS drop-downs: Great for their time!">creating drop-down menus using only
+the CSS :hover
+pseudoclass</a>
+was the trend, and how that pretty much violates all of the
+recommendations:</p>
+<ol>
+<li>Wait 0.5 seconds.</li>
+<li>If the pointer is still hovering over a navbar item, display its
+mega drop-down within 0.1 seconds.</li>
+<li>Keep showing it until the pointer has been outside both the navbar
+item and the drop-down for 0.5 seconds. Then, remove it in less
+than 0.1 seconds.</li>
+</ol>
+<p>Nielsen goes on to say, regarding mouseover:</p>
+<blockquote>
+<p>[T]he mouse should remain stationary for 0.5 seconds before you
+display anything that&#39;s hover-dependent, such as a mega drop-down or a
+tooltip. Violating this guideline will make the screen flicker
+insufferably when users move the mouse.</p>
+</blockquote>
+<p>I&#39;ve suffered through my share of instantly dropping menus on websites
+(usually coupled with an all-too-complicated navigation structure), and
+it didn&#39;t occur to me what a dramatic effect that half-second pause
+really has. So, with this in mind, how about using the CSS version as a
+base for enhancement, so users without JavaScript can still get a
+version of this effect? It seems research reveals that even in that
+case, a CSS drop-down menu should be avoided:</p>
+<blockquote>
+<p>Don&#39;t bother making the drop-down itself accessible. Instead, make
+each top-level menu choice clickable, leading to a regular Web page
+where you present all drop-down options in plain, fully accessible
+HTML.</p>
+</blockquote>
+<p>It&#39;s almost too obvious. CSS drop-downs, you sure were a fun technical
+exercise, but I&#39;m happy to bid you farewell in favor of a better
+experience for users (not to mention less cross-browser-induced head
+trauma!).</p>
 
     </div>
 
-    
-        
-    
         </div>
 
-        <div class="small-12 large-5 columns">
-    
-
-        
-
-        
-            
-            <!--
-            <span class="role-badge">
-                <i title="Design" class="fa fa-pencil-square-o"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-pencil-square-o"></i>
-                Design
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        Visual design
-                    </li>
-                
-                    <li>
-                        Information architecture
-                    </li>
-                
-                    <li>
-                        Interaction design
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Front-end development" class="fa fa-code"></i>
-            </span>
-            -->
-            <h6>
-                <i class="fa fa-code"></i>
-                Front-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        HTML
-                    </li>
-                
-                    <li>
-                        CSS
-                    </li>
-                
-                    <li>
-                        JavaScript, jQuery
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Back-end development" class="fa fa-cubes"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-cubes"></i>
-                Back-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        PHP, CodeIgniter
-                    </li>
-                
-                    <li>
-                        MySQL
-                    </li>
-                
-            </ul>
-            
-        
-        
-
-    
-        </div>
     </div>
 
             <footer class="inverse">

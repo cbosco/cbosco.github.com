@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" ⚡>
+<head>
+    <meta charset="utf-8">
+<link rel="canonical" href="/posts/Spellcheck-HTML-Inline-with-GoogieSpell.html">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+
+<title>Spellcheck HTML Inline with GoogieSpell</title>
+
+<meta name="author" content="Chris Bosco">
+<link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
+
+  <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
+  <meta name="copyright" content="copyright 2007-20014 chrisbosco.com">
+
+<link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet" type="text/css">
+<link href="/assets/app.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body>
+    <div class="contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+        <li class="name">
+            <a href="/"><amp-img width="61" height="50" src="/images/logo-masthead.png"></a>
+        </li>
+    </ul>
+
+    <section class="top-bar-section">
+        <div class="right">
+            <span class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://instagram.com/chrisbosco" title="Instagram">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </span>
+        </div>
+    </section>
+
+    </nav>
+</div>
+
+    <div class="row">
+        <div class="small-12 columns">
+        
+            <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2009-8-16
+                </a>
+                <a class="current">Spellcheck HTML Inline with GoogieSpell</a>
+            </nav>
+        
+        </div>
+    </div>
+    <div class="heading text-center">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1>
+                    Spellcheck HTML Inline with GoogieSpell
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript, Widgets
+            </h6>
+        </div>
+    </div>
+
+
+        
+
+    <div class="row">
+        <div class="small-12 columns">
+
+    <div class="project-summary-detail post-detail">
+        <p><img src="http://projects.chrisbosco.com/blog/demo/googiespell/googie_example.png" alt="GoogieSpell screenshot"></p>
+<p>Orangoo
+Labs&#39; <a href="http://orangoo.com/labs/GoogieSpell/">GoogieSpell</a> widget is a
+really clever way of spellchecking input fields or textareas on a Web
+form, completely inline (think Microsoft Word) and without that nasty
+popup window you usually see that loops through all of your typos
+serially. As a bonus, by default it makes a call to Google&#39;s
+spellchecking web service so you don&#39;t have to install or maintain your
+own dictionary (although you can easily extend it to do so). Also, did I
+mention it&#39;s FREE?</p>
+<p>I recently worked on an online workflow for writing, and one of our
+primary goals was to curb the amount of spelling mistakes we were seeing
+from the authors. Our solution was to spellcheck their content in an
+elegant but mandatory way. Enter GoogieSpell.</p>
+<p>But, nobody is satisfied with just <em>plain text</em> anymore, right? Much of
+this content happens to be HTML from <a href="http://www.fckeditor.net/">a popular 3rd party rich text
+editor</a>. This presented a more complicated
+problem than it sounds (or maybe it sounds just about as complicated as
+it is?) and I&#39;m going to walk through my solution: making GoogieSpell
+play nicely with both HTML and plain text.</p>
+<p>You can <a href="#download">download</a> my modified version of GoogieSpell below; I&#39;ve modified
+both the original GoogieSpell JavaScript (which instantiates one
+spellchecker per DOM element) as well as GoogieSpell&#39;s later-released
+&quot;Multiple&quot; version, which can check multiple elements through one
+spellchecker instance. I have also modified the original demo page to
+include an HTML spellchecking example.</p>
+<p><a href="#Download">Download files</a></p>
+<p>First, we add a new GoogieSpell property, <code>GoogieSpell.isHTML</code>, along
+with getter/setter methods. This acts as a flag for whether you need to
+spellcheck plain text (<code>input</code> or <code>textarea</code> tags) or HTML (anything
+else).</p>
+<pre><code class="lang-javascript"><span class="comment">/*
+    GoogieSpell HTML support / switch between modes
+*/</span>
+GoogieSpell.isHTML = <span class="literal">false</span>;
+GoogieSpell.prototype.setIsHTML = <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>{
+    <span class="keyword">var</span> origSupport = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'input|textarea'</span>, <span class="string">'i'</span>);
+    <span class="keyword">this</span>.isHTML = origSupport.test(el.nodeName) ? <span class="literal">false</span> : <span class="literal">true</span>;
+}
+GoogieSpell.prototype.getIsHTML = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.isHTML;
+}
+</code></pre>
+<p>Second, we need to wire this new property into GoogieSpell&#39;s <code>getValue</code>
+and <code>setValue</code> methods, and tell it to use either the <code>innerHTML</code> or
+<code>value</code> attribute.</p>
+<p><code>getValue</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">return</span> (<span class="keyword">this</span>.getIsHTML()) ? ta.innerHTML : ta.value;
+</code></pre>
+<p><code>setValue</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">if</span> (<span class="keyword">this</span>.getIsHTML()) {
+    ta.innerHTML = value;
+} <span class="keyword">else</span> {
+    ta.value = value;
+}
+</code></pre>
+<p>Up to now, this has all been pretty straightforward, but once we get to
+GoogieSpell&#39;s <code>showErrorsInIframe</code> method, we start to do some
+&#39;hacking&#39;. For anyone who has already attempted using GoogieSpell on
+HTML, you know the challenge is in GoogieSpell&#39;s custom error
+object/elements that have many custom properties important to
+GoogieSpell&#39;s proper functioning, and cannot simply be appended via
+<code>innerHTML</code>; they will lose all of this custom information in the
+process. So in order to retain this information, we add a step before
+placing the error objects where error object placeholders are appended
+using string manipulation (fully compatible with <code>innerHTML</code>) and follow
+that by placing the real error objects using DOM manipulation. Problem
+solved!</p>
+<p>Phase 1: String manipulation. A string representation of the output
+called <code>outputBuffer</code> is appended with placeholders for the real
+GoogieSpell error objects:</p>
+<pre><code class="lang-javascript">outputBuffer += <span class="string">'&lt;var class="err_hook"&gt;&amp;nbsp;&lt;/var&gt;'</span>;
+</code></pre>
+<p>Phase 2: DOM manipulation. A new function, <code>insertErrLinks</code>, is created
+that will read through <code>outputBuffer</code> and place GoogieSpell&#39;s custom
+<code>err_link</code> objects in their correct spots, using the DOM method
+<code>replaceChild</code>, preserving all error object information:</p>
+<pre><code class="lang-javascript">GoogieSpell.prototype.insertErrLinks = <span class="function"><span class="keyword">function</span>(<span class="params">output, err_links</span>) </span>{
+    <span class="keyword">var</span> all_vars = output.getElementsByTagName(<span class="string">'var'</span>);
+    <span class="keyword">var</span> all_vars_len = all_vars.length;
+    <span class="keyword">var</span> err_count = <span class="number">0</span>;
+    <span class="keyword">var</span> err_len = err_links.length;
+    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; all_vars_len; i++) {
+        <span class="keyword">if</span> (all_vars[i].className == <span class="string">'err_hook'</span>) {
+            <span class="comment">//  Replace &amp;nbsp; with span.    is needed for IE implementation of innerHTML</span>
+            all_vars[i].replaceChild(err_links[err_count], all_vars[i].firstChild);
+            err_count++;
+            <span class="keyword">if</span> (err_count == err_len) <span class="keyword">break</span>;
+        }
+    }
+}
+</code></pre>
+<p>Minor note: I insert the <code>var</code> tag now, which some browsers give a
+default styling too. I reset this styling in googiespell.css. If you
+think that&#39;s crazy then by all means modify the script to suit whatever
+tag you&#39;d prefer to use! I like <code>var</code> becaues it&#39;s likely nobody is
+using it in the HTML you&#39;re checking, so it makes the DOM manipulation
+slightly more efficient.</p>
+<p>Try it yourself in the paragraph below. Note that you can correct the
+spelling but I&#39;m not saving it in any way so it will reappear when this
+page is reloaded.</p>
+<hr>
+<p><span id="spell_container"></span></p>
+<div id="testHTML">
+    <p>
+        Heere is a parargaph with <b>bould</b> and <u>underlined</u> text that has some mistaykes
+    </p>
+    <ol class="fList">
+        <li>And here is an orderred list</li>
+        <li>With evne more typpos and misspellings!</li>
+    </ol>
+</div>
+
+<hr>
+<p>There is one edge condition with this that I&#39;ve run across: Google&#39;s
+dictionary (GoogieSpell&#39;s &quot;out of the box&quot; back-end) does not seem to
+work perfectly when you feed it HTML. Apparently it will return spelling suggestions that assume some closing tags are part of the words themselves. I&#39;ve only seen this happen in lists on <code>li</code> tags, and only
+when the last word is misspelled with no spacing afterwards. We replaced
+Google with our own dictionary on the back-end and were able to fully
+support HTML afterwards.</p>
+<p>So, what next? Well, after getting this far, why not put GoogieSpell
+inside the rich text editor itself? I can safely say that after
+sufficient banging of head against keyboard, we got this to work too.
+Maybe I&#39;ll go through that in a future post, but it ended up being a
+very specific, customized integration with another 3rd party tool so
+I&#39;ll leave this discussion as agnostic as possible. The work remaining,
+for those interested, involves adding a button to the toolbar of your
+editor du jour, and dealing with the never-ending nesting of iframes
+these tools typically use.</p>
+<p>Happy spellchecking!</p>
+<p><strong>Update:</strong> By popular demand, <a href="/Spellcheck-Rich-Text-with-GoogieSpell.html">Spellcheck Rich Text with GoogieSpell</a>
+explains how to use GoogieSpell with FCKEditor</p>
+<p><a name="Download"></a></p>
+<h2 id="download">Download</h2>
+<ul>
+<li>Modified GoogieSpell JavaScript:
+<a href="http://github.com/cbosco/googiespell/blob/master/googiespell.js">googiespell.js</a></li>
+<li>Modified GoogieSpell &quot;Multiple&quot; JavaScript:
+<a href="http://github.com/cbosco/googiespell/blob/master/googiespell_multiple.js">googiespell_multiple.js</a></li>
+<li>Or, get all modified GoogieSpell files: <a href="http://github.com/cbosco/googiespell/tree/master">googiespell repo at
+github</a></li>
+</ul>
+<script type="text/javascript">
+        //document.domain = 'chrisbosco.com';
+</script>
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/AJS.js"></script>
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/googiespell.js"></script>
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/cookiesupport.js"></script>
+<link href="http://projects.chrisbosco.com/blog/demo/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all"></link>
+<style type="text/css">#testHTML { height: 120px; border: 1px solid #fff; } .post b span { font-weight: bold; }</style>
+<script type="text/javascript">
+        var googie = new GoogieSpell('http://projects.chrisbosco.com/blog/demo/googiespell/', 'http://projects.chrisbosco.com/blog/demo/googiespell/sendReq.php?lang=');
+        googie.setSpellContainer('spell_container');
+        googie.decorateTextarea('testHTML');
+
+</script>
+
+
+    </div>
+
+        </div>
+
+    </div>
+
+            <footer class="inverse">
+
+            <div class="row">
+                <div class="small-12 columns">
+
+        <p class="right">
+            <a href="#">
+                <i class="fa fa-angle-up"></i> top
+            </a>
+        </p>
+        <div class="name">
+            <a href="/"><amp-img width="98" height="80" src="/images/logo-footer.png"></a>
+        </div>
+
+<div class="place">
+          <h2><a href="/posts.html">Blog</a></h2>
+        </div>
+        <div class="place">
+        </div>
+
+          <h2>Elsewhere</h2>
+            <ul class="no-bullet">
+              <li class="social-icon">
+                  <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                      cbosco
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                  @cbsides
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://instagram.com/chrisbosco" title="Instagram">
+
+                    <i class="fa fa-instagram"></i>
+                      chrisbosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                  <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+
+                    <i class="fa fa-linkedin-square"></i>
+                  Chris Bosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                  contact@chrisbosco.com
+                  </a>
+              </li>
+            </ul>
+          <p class="copyright">
+            &copy; 2007-2016 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
+          </p>
+
+                </div><!-- .row -->
+            </div><!-- .small-12 columns -->
+        </footer>
+
+        <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-4850138"
+          },
+          "triggers": {
+            "defaultPageview": {
+              "on": "visible",
+              "request": "pageview"
+            }
+          }
+        }
+        </script>
+        </amp-analytics>
+
+
+</body>
+</html>
+

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" ⚡>
+<head>
+    <meta charset="utf-8">
+<link rel="canonical" href="/posts/Scrolling-In-Page-Links-with-jQuery.html">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+
+<title>Scrolling In-Page Links with jQuery</title>
+
+<meta name="author" content="Chris Bosco">
+<link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
+
+  <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
+  <meta name="copyright" content="copyright 2007-20014 chrisbosco.com">
+
+<link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet" type="text/css">
+<link href="/assets/app.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body>
+    <div class="contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+        <li class="name">
+            <a href="/"><amp-img width="61" height="50" src="/images/logo-masthead.png"></a>
+        </li>
+    </ul>
+
+    <section class="top-bar-section">
+        <div class="right">
+            <span class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://instagram.com/chrisbosco" title="Instagram">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </span>
+        </div>
+    </section>
+
+    </nav>
+</div>
+
+    <div class="row">
+        <div class="small-12 columns">
+        
+            <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2009-7-6
+                </a>
+                <a class="current">Scrolling In-Page Links with jQuery</a>
+            </nav>
+        
+        </div>
+    </div>
+    <div class="heading text-center">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1>
+                    Scrolling In-Page Links with jQuery
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript, jQuery, UI Patterns
+            </h6>
+        </div>
+    </div>
+
+
+        
+
+    <div class="row">
+        <div class="small-12 columns">
+
+    <div class="project-summary-detail post-detail">
+        <p>In-page links (or, links that jump to specific areas of the current
+page) are definitely useful for lengthy or text-heavy sites, and often
+essential when these pages are consumed by screenreaders or &quot;legacy&quot;
+mobile devices. But they can also be disorienting for <a href="http://www.useit.com/alertbox/within_page_links.html">many
+reasons</a> — did I
+just move up the page? Down it? With the instantaneous transition the
+browser provides by default, a user is left to guess.</p>
+<p>I wouldn&#39;t be the first to suggest overriding this behavior with a
+scrolling effect that illuminates which direction you&#39;ve traveled, and
+also how far. A global, automatic solution would be ideal. For animated
+effects, a robust JavaScript library can save a lot of time, and I&#39;ll
+use the popular <a href="http://jquery.com">jQuery</a> library for this example.
+Out of the box, jQuery does not have this functionality, and although
+there is an <a href="http://plugins.jquery.com/project/ScrollTo">appropriate
+plugin</a>, I was determined to
+cobble together my own solution so as to avoid loading an additional
+plugin only to use it in this one instance.</p>
+<p>A quick seach brought me to <a href="http://www.learningjquery.com/2007/09/animated-scrolling-with-jquery-12">Learning
+jQuery</a>,
+where there is a great solution I&#39;ve shamelessly copied (with very minor
+modification). I will walk through this solution below, although I
+recommend reading the original breakdown at Learning jQuery.</p>
+<pre><code class="lang-javascript">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    $(<span class="string">'a[href*=#]'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+        <span class="keyword">var</span> target = $(<span class="string">'a[name='</span> + <span class="keyword">this</span>.hash.split(<span class="string">'#'</span>)[<span class="number">1</span>] + <span class="string">']'</span>);
+        <span class="keyword">if</span> (target.length) {
+            <span class="keyword">var</span> targetOffset = target.offset().top - <span class="number">2</span>;
+            $(<span class="string">'html,body'</span>).animate({scrollTop: targetOffset}, <span class="string">'fast'</span>);
+            <span class="keyword">return</span> <span class="literal">false</span>;
+        }
+    });
+});
+</code></pre>
+<ol>
+<li><p>Attach a click event to every anchor element with an <code>href</code>
+attribute beginning with a &#39;#&#39; (e.g. any in-page link).</p>
+<pre><code class="lang-javascript"> $(<span class="string">'a[href*=#]'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ ... });
+</code></pre>
+</li>
+<li><p>Get the link&#39;s destination on the page using its <code>hash</code> property.
+<code>hash</code> refers to the portion of any URL that begins with &#39;#&#39;. Use this
+in another selector to get the anchor element on this page with the
+corresponding <code>name</code> attribute. Save this as the <code>target</code> variable.</p>
+<pre><code class="lang-javascript"> <span class="keyword">var</span> target = $(<span class="string">'a[name='</span> + <span class="keyword">this</span>.hash.split(<span class="string">'#'</span>)[<span class="number">1</span>] + <span class="string">']'</span>);
+</code></pre>
+</li>
+<li><p>If this element exists on the page (<code>target</code> collection length
+greater than zero), get the distance from the top of the page to this
+element and save it as <code>targetOffset</code> (note that I subtract 2 to give a
+little bit of breathing room visually; this way the element doesn&#39;t
+touch the top of the browser frame).</p>
+<pre><code class="lang-javascript"> <span class="keyword">if</span> (target.length) {
+     <span class="keyword">var</span> targetOffset = target.offset().top - <span class="number">2</span>;
+     <span class="comment">//...</span>
+ }
+</code></pre>
+</li>
+<li><p>Now use jQuery&#39;s built-in
+<a href="http://docs.jquery.com/Effects/animate"><code>animate()</code></a> method to scroll
+the page itself (grabbing the <code>html</code> or <code>body</code> element in case the
+browser is in
+<a href="http://www.quirksmode.org/css/quirksmode.html">quirksmode</a>).</p>
+<pre><code class="lang-javascript"> $(<span class="string">'html,body'</span>).animate({scrollTop: targetOffset}, <span class="string">'fast'</span>);
+</code></pre>
+</li>
+<li><p>Return <code>false</code> because now you don&#39;t actually follow this link.</p>
+<pre><code class="lang-javascript"> <span class="keyword">return</span> <span class="literal">false</span>;
+</code></pre>
+</li>
+</ol>
+<p>You can see this in action in many areas of this site as long as you
+have javascript enabled. For example, try clicking the &quot;top ↑&quot; link in
+the right-hand column.</p>
+<p>It&#39;s of note that the
+<a href="http://docs.jquery.com/Effects/animate"><code>animate()</code></a> method takes a
+variety of arguments. I&#39;ve only supplied the target for <code>scrollTop</code> and
+the speed (&quot;fast&quot;), but it&#39;s a very powerful function. A third argument,
+<code>easing</code>, is available via a plugin, and can make the animation look
+much more natural. In my case, however, I opted for less code overhead
+and omitted this. The final argument, <code>callback</code>, provides for some
+interesting possibilities, but I also found it to be unnecessary for
+this case.</p>
+
+    </div>
+
+        </div>
+
+    </div>
+
+            <footer class="inverse">
+
+            <div class="row">
+                <div class="small-12 columns">
+
+        <p class="right">
+            <a href="#">
+                <i class="fa fa-angle-up"></i> top
+            </a>
+        </p>
+        <div class="name">
+            <a href="/"><amp-img width="98" height="80" src="/images/logo-footer.png"></a>
+        </div>
+
+<div class="place">
+          <h2><a href="/posts.html">Blog</a></h2>
+        </div>
+        <div class="place">
+        </div>
+
+          <h2>Elsewhere</h2>
+            <ul class="no-bullet">
+              <li class="social-icon">
+                  <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                      cbosco
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                  @cbsides
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://instagram.com/chrisbosco" title="Instagram">
+
+                    <i class="fa fa-instagram"></i>
+                      chrisbosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                  <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+
+                    <i class="fa fa-linkedin-square"></i>
+                  Chris Bosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                  contact@chrisbosco.com
+                  </a>
+              </li>
+            </ul>
+          <p class="copyright">
+            &copy; 2007-2016 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
+          </p>
+
+                </div><!-- .row -->
+            </div><!-- .small-12 columns -->
+        </footer>
+
+        <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-4850138"
+          },
+          "triggers": {
+            "defaultPageview": {
+              "on": "visible",
+              "request": "pageview"
+            }
+          }
+        }
+        </script>
+        </amp-analytics>
+
+
+</body>
+</html>
+

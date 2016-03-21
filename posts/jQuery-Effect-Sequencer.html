@@ -2,7 +2,7 @@
 <html lang="en" ⚡>
 <head>
     <meta charset="utf-8">
-<link rel="canonical" href="/projects/2009-cbsides/">
+<link rel="canonical" href="/posts/jQuery-Effect-Sequencer.html">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -12,7 +12,7 @@
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 
 
-<title>cbsides</title>
+<title>jQuery Effect Sequencer</title>
 
 <meta name="author" content="Chris Bosco">
 <link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
@@ -66,14 +66,15 @@
     </nav>
 </div>
 
-    
     <div class="row">
         <div class="small-12 columns">
         
             <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
-                <a href="/projects.html">Projects</a>
-                <a class="unavailable" >2009</a>
-                <a class="current">cbsides</a>
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2010-11-1
+                </a>
+                <a class="current">jQuery Effect Sequencer</a>
             </nav>
         
         </div>
@@ -81,176 +82,147 @@
     <div class="heading text-center">
         <div class="row">
             <div class="small-12 columns">
-            
                 <h1>
-                    
-                    cbsides
+                    jQuery Effect Sequencer
                 </h1>
-
-            
             </div>
         </div>
     </div>
 
-    
-        
-
-            <div class="featured texture">
-                <div class="row collapse">
-                    <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
-                        <amp-carousel width=400 height=300 layout=responsive type=slides controls>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides.png">
-                            </a>
-
-                        </div>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides-listing.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides-listing.png">
-                            </a>
-
-                        </div>
-                        
-                        </amp-carousel>
-                    </div>
-                </div>
-            </div>
-
-        
-    
     <div class="row">
-        <div class="small-12 large-7 columns">
-    
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript, jQuery
+            </h6>
+        </div>
+    </div>
+
 
         
-    
+
+    <div class="row">
+        <div class="small-12 columns">
+
+    <div class="project-summary-detail post-detail">
+        <style type="text/css">
+  #list-of-tiles {
+    margin: 1em 0;
+    padding: 0;
+    max-width: 225px;
+    min-height: 45px;
+    overflow: hidden;
+  }
+
+  #list-of-tiles li {
+    float: left;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    margin: 0 5px 5px 0;
+    background: #f90;
+    color: #fff;
+    font: 36px/1 serif;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    list-style: none;
+  }
+  #list-of-tiles li:nth-child(2n) {
+    background: #009;
+  }
+  #list-of-tiles li:nth-child(3n) {
+    background: #3f0;
+  }
+  #list-of-tiles li:nth-child(4n) {
+    background: #c09;
+  }
+  #list-of-tiles li:nth-child(5n) {
+    background: #09f;
+  }
+  #list-of-tiles li:hover {
+    background: gray;
+  }
+  #list-of-tiles li:active {
+    background: #000;
+  }
+  #tile-count {
+    font-family: monospace;
+  }
+</style>
+
+<p>I&#39;ve got the opportunity to build a client-heavy web experience with a
+big emphasis on transitions and effects. This is probably something that
+would have been built using Flash just a short time ago, but today we&#39;re
+using everyone&#39;s favorite JavaScript library, jQuery.</p>
+<p><img src="http://projects.chrisbosco.com/blog/demo/transitions/sequencer.jpg" alt="Sequencer" title="CC image courtesy of fonitronik on Flickr"></p>
+<p>Just before diving in, I attended <a href="http://events.jquery.org/2010/boston/">jQuery
+Boston</a> and got totally inspired
+by a few key talks on JavaScript architecture, mobile web apps, and one
+gnome-filled piece from Karl Swedberg titled <a href="http://pres.learningjquery.com/jqcon2010/">jQuery Effects: Beyond the
+Basics</a>. This was a really
+jam-packed presentation that had something for all levels of jQuery
+ninja. My favorite part was a little recursive function called
+<code>sequencer</code> that calls animations, one after the other, on a collection
+of elements. If you try to do something like this directly (without the
+sequencer):</p>
+<pre><code class="lang-javascript">$(<span class="string">'#Gnomes'</span>).children().animate({height: <span class="string">'100px'</span>}, <span class="string">'fast'</span>);
+</code></pre>
+<p>jQuery is going to perform the animations simultaneously, which may or
+may not be desired. I grabbed the sequencer because I wanted to create a
+tiling-in effect for a list of items of a dynamic length. In the
+process, I generalized the sequencer a bit, so it works with not only
+animate, but the shortcuts we&#39;ve all come to love such as hide/show,
+slideIn/slideOut, and so on, and packaged it as part of a small
+transitions framework that&#39;s hopefully going to allow me to do some
+rapid prototyping on the transitions in my site. Read on for the demo
+and github link!</p>
+<p>The transition object (feel free to replace <code>cb</code> with your own global
+namespace) can be extended to add custom transitions and provides the
+sequencer for use in them. I also built a demo consumer for the object
+that hopefully gives a good sense of how this is used (and how useful it
+can be).</p>
+<p>The sequencer now also allows for an optional callback function once all
+elements have animated, and can traverse the elements backwards or
+forwards by changing the direction in your transition. In my example
+below, I un-tile the list backward before re-tiling it forward, followed
+by a callback that re-enables the &quot;Start&quot; button.</p>
+<p>Choose a tile count and click &quot;Start&quot; multiple times to see the effect:</p>
+<div>
+  <form id="tile-control">
+  <select id="tile-count">
+    <option selected="selected">Tile count:</option>
+    <option value="5">&nbsp;5 tiles</option>
+    <option value="10">10 tiles</option>
+    <option value="20">20 tiles</option>
+    <option value="50">50 tiles</option>
+  </select>
+  <input id="tile-button" type="submit" value="Start" /><br>  </form>
 
 
-    <div class="project-summary-detail">
-        <p>My blog covers topics related to front-end web development and design,
-with occasional tutorials and demos. The inspiration comes from the
-helpful niche sites that were indispensable to me in my first years as a
-developer, and I hoped to give back to that community. Crafting every
-post also has the added benefit of coalescing my learnings for my own
-record.</p>
-<p>The blog is custom-built and hand-coded from front to back on the
-<a href="http://codeigniter.com/">CodeIgniter MVC framework</a>. Although I was
-using the MVC pattern at the time for work, building every layer of this
-site (rather than just focusing on the client-side) helped me to fully
-understand it.</p>
-<p>Because CodeIgniter is based on PHP, I&#39;ve found it relatively easy to
-port over plugins from popular platforms like WordPress, such as the
-very useful <a href="http://akismet.com/">Akismet</a>.</p>
+  <ul id="list-of-tiles">
+
+
+  </ul>
+
+</div>
+
+<p>The code, along with the above demo, is available on
+<a href="http://github.com/cbosco/jquery-transitions">github</a>.</p>
+<p><a name="Download"></a></p>
+<h2 id="download">Download</h2>
+<ul>
+<li><a href="http://github.com/cbosco/jquery-transitions">jquery-transitions on
+GitHub</a></li>
+</ul>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://projects.chrisbosco.com/blog/demo/transitions/cb.transition.js"></script>
+<script src="http://projects.chrisbosco.com/blog/demo/transitions/demo.js"></script>
 
     </div>
 
-    
-        
-    
         </div>
 
-        <div class="small-12 large-5 columns">
-    
-
-        
-
-        
-            
-            <!--
-            <span class="role-badge">
-                <i title="Design" class="fa fa-pencil-square-o"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-pencil-square-o"></i>
-                Design
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        Visual design
-                    </li>
-                
-                    <li>
-                        Information architecture
-                    </li>
-                
-                    <li>
-                        Interaction design
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Front-end development" class="fa fa-code"></i>
-            </span>
-            -->
-            <h6>
-                <i class="fa fa-code"></i>
-                Front-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        HTML
-                    </li>
-                
-                    <li>
-                        CSS
-                    </li>
-                
-                    <li>
-                        JavaScript, jQuery
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Back-end development" class="fa fa-cubes"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-cubes"></i>
-                Back-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        PHP, CodeIgniter
-                    </li>
-                
-                    <li>
-                        MySQL
-                    </li>
-                
-            </ul>
-            
-        
-        
-
-    
-        </div>
     </div>
 
             <footer class="inverse">

@@ -1,8 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ⚡>
 <head>
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=0" />
-<meta charset="utf-8">
+    <meta charset="utf-8">
+<link rel="canonical" href="/projects/2010-the-shoshin-project/">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+
 <title>The Shoshin Project</title>
 
 <meta name="author" content="Chris Bosco">
@@ -11,17 +20,7 @@
   <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
   <meta name="copyright" content="copyright 2007-20014 chrisbosco.com">
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-4850138-1', 'auto');
-    ga('send', 'pageview');
-</script>
-
-<link href='http://fonts.googleapis.com/css?family=Oswald|Raleway' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet" type="text/css">
 <link href="/assets/app.css" rel="stylesheet" type="text/css" media="all">
 
 </head>
@@ -30,7 +29,7 @@
     <nav class="top-bar" data-topbar role="navigation">
     <ul class="title-area">
         <li class="name">
-            <a href="/"><img src="/images/logo-masthead.png"></a>
+            <a href="/"><amp-img width="61" height="50" src="/images/logo-masthead.png"></a>
         </li>
     </ul>
 
@@ -95,37 +94,56 @@
     </div>
 
     
-
         
 
+            <div class="featured texture">
+                <div class="row collapse">
+                    <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
+                        <amp-carousel width=400 height=300 layout=responsive type=slides controls>
+                        
+                        <div>
 
-        <div class="featured texture">
-            <div class="row collapse">
-                <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
-                    <slick slides-to-show="1" arrows="true" infinite="true" responsive="[{breakpoint: 641, settings: { centerMode: true, arrows: false }}]">
+                            <a target="_blank" href="original-images/shoshin-edition.png">
+                                <amp-img 
+                                placeholder
+                                layout="responsive"
+                                width="616" 
+                                height="390" 
+                                src="shoshin-edition.png">
+                            </a>
+
+                        </div>
                         
-                            <div>
-                                <a target="_blank" href="original-images/shoshin-edition.png">
-                                    <img src="shoshin-edition.png">
-                                </a>
-                            </div>
+                        <div>
+
+                            <a target="_blank" href="original-images/shoshin-video-detail.png">
+                                <amp-img 
+                                placeholder
+                                layout="responsive"
+                                width="616" 
+                                height="390" 
+                                src="shoshin-video-detail.png">
+                            </a>
+
+                        </div>
                         
-                            <div>
-                                <a target="_blank" href="original-images/shoshin-video-detail.png">
-                                    <img src="shoshin-video-detail.png">
-                                </a>
-                            </div>
+                        <div>
+
+                            <a target="_blank" href="original-images/shoshin-article-detail.png">
+                                <amp-img 
+                                placeholder
+                                layout="responsive"
+                                width="616" 
+                                height="390" 
+                                src="shoshin-article-detail.png">
+                            </a>
+
+                        </div>
                         
-                            <div>
-                                <a target="_blank" href="original-images/shoshin-article-detail.png">
-                                    <img src="shoshin-article-detail.png">
-                                </a>
-                            </div>
-                        
-                    </slick>
+                        </amp-carousel>
+                    </div>
                 </div>
             </div>
-        </div>
 
         
     
@@ -256,7 +274,7 @@ been implemented by sites such as Twitter and Facebook.</p>
             <ul class="square">
                 
                     <li>
-                        <a href="http://blog.cbsides.com/jQuery-Effect-Sequencer.html">
+                        <a href="/posts/jQuery-Effect-Sequencer.html">
                             jQuery Effect Sequencer
                         </a>
                     </li>
@@ -279,11 +297,11 @@ been implemented by sites such as Twitter and Facebook.</p>
             </a>
         </p>
         <div class="name">
-            <a href="/"><img src="/images/logo-footer.png"></a>
+            <a href="/"><amp-img width="98" height="80" src="/images/logo-footer.png"></a>
         </div>
 
 <div class="place">
-          <h2><a href="http://blog.cbsides.com">Blog</a></h2>
+          <h2><a href="/posts.html">Blog</a></h2>
         </div>
         <div class="place">
         </div>
@@ -326,19 +344,28 @@ been implemented by sites such as Twitter and Facebook.</p>
               </li>
             </ul>
           <p class="copyright">
-            &copy; 2007-2014 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
+            &copy; 2007-2016 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
           </p>
 
                 </div><!-- .row -->
             </div><!-- .small-12 columns -->
         </footer>
 
-        <script src="/assets/vendor.js"></script>
-        <script src="/assets/app.js"></script>
-        <script>
-            require('app/app');
+        <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-4850138"
+          },
+          "triggers": {
+            "defaultPageview": {
+              "on": "visible",
+              "request": "pageview"
+            }
+          }
+        }
         </script>
-
+        </amp-analytics>
 
 
 </body>

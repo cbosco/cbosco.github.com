@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" ⚡>
+<head>
+    <meta charset="utf-8">
+<link rel="canonical" href="/posts/Rails-Authenticate-with-EmberJS.html">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+
+<title>Rails: Authenticate with EmberJS</title>
+
+<meta name="author" content="Chris Bosco">
+<link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
+
+  <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
+  <meta name="copyright" content="copyright 2007-20014 chrisbosco.com">
+
+<link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet" type="text/css">
+<link href="/assets/app.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body>
+    <div class="contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+        <li class="name">
+            <a href="/"><amp-img width="61" height="50" src="/images/logo-masthead.png"></a>
+        </li>
+    </ul>
+
+    <section class="top-bar-section">
+        <div class="right">
+            <span class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://instagram.com/chrisbosco" title="Instagram">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </span>
+        </div>
+    </section>
+
+    </nav>
+</div>
+
+    <div class="row">
+        <div class="small-12 columns">
+        
+            <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2013-6-4
+                </a>
+                <a class="current">Rails: Authenticate with EmberJS</a>
+            </nav>
+        
+        </div>
+    </div>
+    <div class="heading text-center">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1>
+                    Rails: Authenticate with EmberJS
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript, EmberJS, Ruby, Rails, Authentication
+            </h6>
+        </div>
+    </div>
+
+
+        
+
+    <div class="row">
+        <div class="small-12 columns">
+
+    <div class="project-summary-detail post-detail">
+        <h2 id="-get-the-ember-rails-gem-https-github-com-emberjs-ember-rails-"><a href="https://github.com/emberjs/ember-rails">Get the ember-rails gem</a></h2>
+<p>This guide assumes Ember is <a href="https://github.com/emberjs/ember-rails#getting-started">bootstrapped and installed</a>.</p>
+<h2 id="before-getting-started-with-authentication">Before getting started with authentication</h2>
+<h3 id="a-required-environment-config-bug-">A required environment config (bug?)</h3>
+<p>Before getting started with Ember, as of this writing, <a href="https://github.com/emberjs/ember-rails/issues/64">there is a bug</a> wherein specifying an Ember variant in your environment config is <strong>REQUIRED</strong>. So, be sure to manually include the appropriate variant.  </p>
+<p>For example, in <code>config/environments/development.rb</code> add the line:</p>
+<pre><code>config.ember.variant = :development
+</code></pre><p>Rinse, repeat for <code>:production</code>, <code>:test</code>, etc.</p>
+<h3 id="update-ember">Update Ember</h3>
+<p>The version that came with my gem was a bit outdated so follow the guide to pull down the latest from master and check it into <code>/vendor</code>.</p>
+<pre><code>rails generate ember:install --head
+</code></pre><p>P.S. Restart your server after this. Don&#39;t make the same mistake I did.</p>
+<h3 id="remove-ember-data-api-revision-from-the-store-">Remove Ember Data API revision from the <code>Store</code></h3>
+<p><a href="http://emberjs.com/blog/2013/05/28/ember-data-0-13.html">As of 0.13 this became deprecated</a>.  This would be in <code>app/assets/javascripts/store.js.coffee</code>.</p>
+<h3 id="log_transitions">LOG_TRANSITIONS</h3>
+<p>Add a helpful transition logger in <code>application.js</code>:</p>
+<pre><code>App = Ember.Application.create({
+    LOG_TRANSITIONS: true
+});
+</code></pre><p><em>As of July there is an official Ember <a href="http://emberjs.com/guides/understanding-ember/debugging/">debugging guide</a>.</em></p>
+<h2 id="onto-authentication-">Onto Authentication!</h2>
+<p>With a brand new app, I recommend following the <a href="http://railscasts.com/episodes/250-authentication-from-scratch">Authentication From Scratch RailsCast</a> with bcrypt. (<a href="http://asciicasts.com/episodes/250-authentication-from-scratch">Transcript</a>)</p>
+<p>After Ember is bootstrapped, the generators you run through the railscast tutorial should build corresponding JavaScript.</p>
+<h3 id="intermission-">Intermission...</h3>
+<p>Still there? Awesome.</p>
+<h3 id="javascript-file-location-shorthand">JavaScript file location shorthand</h3>
+<p>To clarify, any client-side work starts in the path <code>/app/assets/javascripts</code> and I will be omitting that for the most part.</p>
+<h2 id="first-handlebars-templates">First Handlebars templates</h2>
+<p>Create the <strong>application</strong> Handlebars template (<code>templates/application.hbs</code>). This is like the server-side <code>application.html.erb</code> template in <code>app/views/layouts</code>. Note the <code>{{outlet}}</code> -- this is where other templates appear. Similar to <code>&lt;%= yield %&gt;</code> in erb on the server.</p>
+<p>templates/application.hbs</p>
+<pre><code>&lt;h2&gt;Hello world&lt;/h2&gt;
+&lt;div&gt;    
+    {{outlet}}
+&lt;/div&gt;
+</code></pre><p>We can also create an <strong>index</strong> template while we are at it at, which can serve as our welcome page.</p>
+<p>templates/index.hbs</p>
+<pre><code>&lt;h1&gt;Welcome to my App!&lt;/h1&gt;
+</code></pre><h2 id="creating-users">Creating users</h2>
+<h3 id="create-the-model-first">Create the model first</h3>
+<p>The <strong>User</strong> model is a little simpler than the server-side one. We just need <code>string</code> attributes for anything we need to submit to the server.</p>
+<p>models/user.js.coffee</p>
+<pre><code>App.User = DS.Model.extend
+    email:  DS.attr(&#39;string&#39;)
+    password:  DS.attr(&#39;string&#39;)
+    passwordConfirmation:  DS.attr(&#39;string&#39;)
+</code></pre><h3 id="followed-by-route-s-">Followed by route(s)</h3>
+<p>To me, an Ember application&#39;s essence is its router.</p>
+<p>Let&#39;s map Users as a resource with a <strong>new</strong> route:</p>
+<p>router.js.coffee</p>
+<pre><code>App.Router.map (match)-&gt;
+    @resource(&#39;users&#39;, -&gt;
+        @route(&#39;new&#39;)
+    )
+</code></pre><p>Unlike in Rails, you have to explicitly map the <strong>new</strong> route, even though you have used the <code>resource</code> method.</p>
+<p>And now we can define the <strong>new</strong> route in its own file.</p>
+<p>routes/users_new_route.js.coffee</p>
+<pre><code>App.UsersNewRoute = Ember.Route.extend({
+    model: -&gt;
+        App.User.createRecord()
+    events:
+        save: -&gt;
+            @content.save()
+                .then =&gt;
+                    @transitionToRoute(&#39;index&#39;)
+        cancel: -&gt;
+            @content.deleteRecord()
+            @transitionToRoute(&#39;index&#39;)
+})
+</code></pre><p>Note first that <code>createRecord()</code> does not do any HTTP communication -- it is akin to <code>new</code> on a Rails ActiveRecord model and just sets up a resource in memory.</p>
+<p>Since we are not yet deviating from the auto-generated Ember controller logic, there is no need to customize that layer yet. We can handle our events at the router level, as they mostly involve simple redirection anyway.</p>
+<p>There are two events we plan to handle here: <strong>save</strong> and <strong>cancel</strong>.  </p>
+<p>In the case of save, we call the <code>save()</code> method on the User model, which follows a promise API. When validation succeeds, you continue into the <code>then</code> case.</p>
+<p>Cancel simply cleans up the User we created in memory when we first loaded this route.</p>
+<h3 id="-and-template-s-">…and template(s)</h3>
+<p>First off, once you have mapped this route you can link to it in your application template:</p>
+<p>templates/application.hbs</p>
+<pre><code>...
+{{#linkTo users.new }}
+    Sign Up
+{{/linkTo}}
+...
+</code></pre><p>And now we add the new User form:</p>
+<p>templates/users/new.hbs</p>
+<pre><code>&lt;form {{action save on=&quot;submit&quot;}}&gt;
+    &lt;div class=&quot;control-group&quot; {{bindAttr class=&quot;errors.email:error&quot;}}&gt;
+        &lt;label for=&quot;user-email&quot;&gt;Email&lt;/label&gt;
+        {{view Ember.TextField valueBinding=&quot;email&quot; id=&quot;user-email&quot; required=&quot;true&quot;}}
+        &lt;span class=&quot;help-inline&quot;&gt;
+            {{errors.email}}
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;control-group&quot; {{bindAttr class=&quot;errors.password:error&quot;}}&gt;
+        &lt;label for=&quot;user-password&quot;&gt;Password&lt;/label&gt;
+        {{view Ember.TextField valueBinding=&quot;password&quot; type=&quot;password&quot; id=&quot;user-password&quot; required=&quot;true&quot;}}
+        &lt;span class=&quot;help-inline&quot;&gt;
+            {{errors.password}}
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;control-group&quot; {{bindAttr class=&quot;errors.passwordConfirmation:error&quot;}}&gt;
+        &lt;label for=&quot;user-password-confirmation&quot;&gt;Password confirmation&lt;/label&gt;
+        {{view Ember.TextField valueBinding=&quot;passwordConfirmation&quot; type=&quot;password&quot; id=&quot;user-password-confirmation&quot; required=&quot;true&quot;}}
+        &lt;span class=&quot;help-inline&quot;&gt;
+            {{errors.passwordConfirmation}}
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;submit&quot;&gt;Join&lt;/button&gt;
+    &lt;a {{action cancel}}&gt;Cancel&lt;/a&gt;
+&lt;/form&gt;
+</code></pre><p>What may seem complicated is basically a lot of markup giving us meaningful error states. The <strong>save</strong>  event (action) is bound to the form submission, and <strong>cancel</strong> is bound to an anchor tag.</p>
+<h3 id="the-right-server-response">The right server response</h3>
+<p>At this point you probably want to test this out, but we shuold make sure our Rails application responds in just the RESTful way Ember expects it to with its REST adapter. (That is, if you want to write the least code possible!)</p>
+<p>There are two overarching rules here.</p>
+<ol>
+<li>When responding successfully with JSON data, always name your resource. In our case this means the User JSON should be within a key called <code>user</code> at the highest level in the parsed JSON tree. </li>
+<li>When responding to an unsuccessful query with errors as JSON, name these <code>errors</code>!</li>
+</ol>
+<p>Finally, we can use a helpful Rails method called <code>respond_to</code> which forks our server response between HTML (traditional Rails site) and JSON (RESTful API communicating with Ember client).</p>
+<p>Back to the Rails code, let&#39;s update the <code>users#create</code> action accordingly.</p>
+<p>/app/controllers/user_controller.rb</p>
+<pre><code>class UsersController &lt; ApplicationController
+
+    ...
+
+    def create
+        @user = User.new params[:user]
+        if @user.save
+            respond_to do |format|
+                format.html { redirect_to :root, notice: &quot;Signed up!&quot; }
+
+                format.json { render json: { user: @user.as_json(only: :email) }, status: :created }
+            end
+        else
+            respond_to do |format|
+                format.html { render :new }
+                format.json { render json: { errors: @user.errors }, status: :unprocessable_entity }
+            end
+        end
+    end
+end
+</code></pre><p>By now you should be able to successfully create a new User.</p>
+<h2 id="creating-sessions">Creating sessions</h2>
+<h3 id="create-the-model-first">Create the model first</h3>
+<p>For the model, follow the pattern for User.</p>
+<p>The <strong>User</strong> model is a little simpler than the server-side one. We just need <code>string</code> attributes for anything we need to submit to the server.</p>
+<p>models/session.js.coffee</p>
+<pre><code>App.Session = DS.Model.extend
+    email: DS.attr(&#39;string&#39;)
+    password: DS.attr(&#39;string&#39;)    
+</code></pre><h3 id="followed-by-route-s-">Followed by route(s)</h3>
+<p>Let&#39;s map the sessions/new (log in) and sessions/destroy (log out)</p>
+<p>router.js.coffee</p>
+<pre><code>App.Router.map (match)-&gt;
+    @resource(&#39;users&#39;, -&gt;
+        @route(&#39;new&#39;)
+    )
+    @resource(&#39;sessions&#39;, -&gt;
+        @route(&#39;new&#39;)
+    )
+</code></pre><p>We will handle two similar events once again: <strong>save</strong> and <strong>cancel</strong>.  </p>
+<p>routes/sessions_new_route.js.coffee</p>
+<pre><code>App.SessionsNewRoute = Ember.Route.extend(
+    needs: [&#39;currentUser&#39;]
+
+    model: -&gt;
+        App.Session.createRecord()
+
+    events:
+        save: -&gt;
+            @controller.content.save()
+                .then =&gt;
+                    @transitionTo(&#39;index&#39;)
+
+        cancel: -&gt;
+            @controller.content.deleteRecord()
+            @transitionTo(&#39;index&#39;)
+)
+</code></pre><h3 id="-and-template-s-">…and template(s)</h3>
+<p>Let&#39;s update the application template with a link to the Login form:</p>
+<p>templates/application.hbs</p>
+<pre><code>...
+{{#linkTo users.new}}Sign Up{{/linkTo}} |
+{{#linkTo sessions.new}}Login{{/linkTo}}
+...
+</code></pre><p>And now we add the the new Session (a.k.a. Login) form, similar to that for the user:</p>
+<p>templates/sessions/new.hbs</p>
+<pre><code>&lt;form {{action save on=&quot;submit&quot;}}&gt;
+    &lt;div class=&quot;control-group&quot; {{bindAttr class=&quot;errors.email:error&quot;}}&gt;
+        &lt;label for=&quot;user-email&quot;&gt;Email&lt;/label&gt;
+        {{view Ember.TextField valueBinding=&#39;email&#39; id=&quot;user-email&quot; required=&quot;true&quot;}}
+        &lt;span class=&quot;help-inline&quot;&gt;
+            {{errors.email}}
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;control-group&quot; {{bindAttr class=&quot;errors.password:error&quot;}}&gt;
+        &lt;label for=&quot;user-password&quot;&gt;Password&lt;/label&gt;
+        {{view Ember.TextField type=&quot;password&quot; valueBinding=&#39;password&#39; id=&quot;user-password&quot; required=&quot;true&quot;}}
+    &lt;/div&gt;
+    &lt;button type=&quot;submit&quot;&gt;Login&lt;/button&gt;
+    &lt;a {{action cancel}}&gt;Cancel&lt;/a&gt;
+&lt;/form&gt;
+</code></pre><h2 id="the-right-server-response-again-">The right server response (again)</h2>
+<p>Before testing we need to update the way Sessions work on the Rails site. Although we don&#39;t have a model we need to update our controller and Sessions HTML form from the authentication example to work a little more like standard Rails resources.</p>
+<p>Specifically, instead of passing discrete <code>:email</code> and <code>:password</code> params to log in, we should pass a <code>:session</code> params object as if we had posted from a <code>form_for</code> a Session resource. While we&#39;re at it, let&#39;s make sure these routes, like those in the User controller, respond with JSON.</p>
+<p>Finally, the resource returned from session creation should actually be a User and not a Session, in order for us to have the notion of a currentUser in Ember (the final thing to implement). However, the User data is labeled as Session in the JSON to keep with the convention in the route. For example:</p>
+<pre><code>{&quot;session&quot;:{&quot;email&quot;:&quot;me@example.com&quot;}}
+</code></pre><p>/app/views/sessions/new.html.erb</p>
+<pre><code>&lt;h1&gt;Sign in&lt;/h1&gt;
+&lt;%= form_tag sessions_path do %&gt;
+    &lt;p&gt;
+        &lt;%= label_tag &#39;[session][email]&#39;, &#39;Email&#39; %&gt;
+        &lt;%= text_field_tag &#39;[session][email]&#39;, (params[:session][:email] unless params[:session].nil?) %&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;%= label_tag &#39;[session][password]&#39;, &#39;Password&#39; %&gt;
+        &lt;%= password_field_tag &#39;[session][password]&#39; %&gt;
+    &lt;/p&gt;
+    &lt;%= submit_tag %&gt;
+&lt;% end %&gt;
+</code></pre><p>/app/controllers/sessions_controller.rb</p>
+<pre><code>def create
+    user = User.authenticate params[:session]
+    if user
+        session[:user_id] = user.id
+
+        respond_to do |format|
+            format.html { redirect_to :root, notice: &quot;Logged in!&quot; }
+            format.json { render json: { session: user.as_json(only: :email) }, status: :created }
+        end
+    else
+
+        respond_to do |format|
+            format.html {
+                flash.now.alert = &quot;Invalid email or password&quot;
+                render :new
+            }
+            format.json { render json: { errors: {email: &quot;Invalid email or password&quot;} }, status: :unprocessable_entity }
+        end
+    end
+end
+</code></pre><h2 id="current_user-how-about-currentuser">current_user? How about currentUser</h2>
+<p>Let&#39;s follow a <a href="http://say26.com/using-rails-devise-with-ember-js">common pattern</a> of using a singleton controller for this.</p>
+<p>controllers/current_user_controller.js.coffee</p>
+<pre><code>App.CurrentUserController = Ember.ObjectController.extend(
+    isSignedIn: (-&gt;
+        @get(&#39;content&#39;) &amp;&amp; @get(&#39;content&#39;).get(&#39;isLoaded&#39;)
+    ).property(&#39;content.isLoaded&#39;)
+)
+</code></pre><h3 id="an-initializer">An initializer</h3>
+<p>We now want to prefill <code>currentUser</code> whenever the application initializes.</p>
+<p>First, make sure initializers are in your manifest in your application&#39;s js file/manifest.</p>
+<p>app.js</p>
+<pre><code>#= require ./store
+#= require_tree ./initializers
+#= require_tree ./models
+#= require_tree ./controllers
+#= require_tree ./views
+#= require_tree ./helpers
+#= require_tree ./templates
+#= require_tree ./routes
+#= require ./router
+#= require_self
+</code></pre><p>Now write the initializer. This type of <a href="http://nerdyworm.com/blog/2013/04/03/ember-initializers/">initializer</a> pre-fetches some data before your app is completely initialized.</p>
+<p>initializers/current_user.js.coffee</p>
+<pre><code>Ember.Application.initializer(
+    name: &#39;currentUser&#39;
+    after: &#39;store&#39;
+
+    initialize: (container) -&gt;
+        store = container.lookup(&#39;store:main&#39;)
+        user = App.User.find(&#39;current&#39;)
+        container.lookup(&#39;controller:currentUser&#39;).set(&#39;content&#39;, user)
+        container.typeInjection(&#39;controller&#39;, &#39;currentUser&#39;, &#39;controller:currentUser&#39;)
+)
+</code></pre><p>Note the <code>after: &#39;store&#39;</code> line to ensure the store is initialized before we operate on it. This is usually the case but it doesn&#39;t hurt to be 100% sure.</p>
+<h3 id="route-update">Route update</h3>
+<p>Let&#39;s update the <code>SessionsNewRoute</code> to set <code>currentUser</code> when successfully logging in.</p>
+<p>routes/sessions_new_route.js.coffee</p>
+<pre><code>App.SessionsNewRoute = Ember.Route.extend(
+    needs: [&#39;currentUser&#39;]
+
+    model: -&gt;
+        App.Session.createRecord()
+
+    events:
+        save: -&gt;
+            @controller.content.save()
+                .then =&gt;
+                    userJSON = @controller.content.toJSON()
+                    userJSON.id = &#39;current&#39;
+                    object = @store.load(App.User, userJSON)
+                    user = App.User.find(&#39;current&#39;)
+
+                    @controllerFor(&#39;currentUser&#39;).set(&#39;content&#39;, user)
+                    @transitionTo(&#39;index&#39;)
+
+        cancel: -&gt;
+            @controller.content.deleteRecord()
+            @transitionTo(&#39;index&#39;)
+)
+</code></pre><p>Note the new dependency on <code>currentUser</code> via the <code>needs</code> key.</p>
+<pre><code>    needs: [&#39;currentUser&#39;]
+</code></pre><h3 id="use-it-to-add-logic-to-your-sign-up-log-in-links">Use it to add logic to your sign up / log in links</h3>
+<p>Now we can use our notion of the currently logged-in user to update the links in our navigation.</p>
+<p>templates/application.hbs</p>
+<pre><code>...
+{{#if currentUser.isSignedIn}}
+    Logged in as {{currentUser.email}}
+{{else}}
+    {{#linkTo users.new}}Sign Up{{/linkTo}} |
+    {{#linkTo sessions.new}}Login{{/linkTo}}
+{{/if}}
+...
+</code></pre><h3 id="the-right-server-response-final-pass-">The right server response (final pass)</h3>
+<p>The initializer is going to make a request to the <code>users/current</code> path in your application. We can anticipate this by adding a CRUD route for the <code>show</code> action.</p>
+<p>/config/routes.rb</p>
+<pre><code>resources :users, only: [:new, :create, :show]
+</code></pre><p>/app/controllers/users_controller.rb</p>
+<pre><code>def show
+    @user = current_user
+    unless @user.nil?
+        respond_to do |format|
+            format.html
+            format.json { render json: { user: @user.as_json(only: :email) } }
+        end
+    else
+        respond_to do |format|
+            format.html
+            format.json { render json: { }, status: :accepted }
+        end
+    end
+end
+</code></pre><h2 id="ok-one-last-thing">Ok, one last thing</h2>
+<p>We need a way to log out. Let&#39;s create a <code>sessions.destroy</code> route.</p>
+<p>First, complete our router map.</p>
+<p>router.js.coffee</p>
+<pre><code>App.Router.map (match)-&gt;
+    @resource(&#39;users&#39;, -&gt;
+        @route(&#39;new&#39;)
+    )
+    @resource(&#39;sessions&#39;, -&gt;
+        @route(&#39;new&#39;)
+        @route(&#39;destroy&#39;)
+    )
+</code></pre><p>Now the route we create will run some code on the <code>enter</code> hook (as soon as it is entered). We unset <code>currentUser</code> and make a <code>GET</code> call to the server followed by a <code>DELETE</code> on the sessions resource to complete the logging out on the server.</p>
+<p>routes/session_destroy_route.js.coffee</p>
+<pre><code>App.SessionsDestroyRoute = Ember.Route.extend(
+    enter: -&gt;
+        controller = @controllerFor(&#39;currentUser&#39;);
+        controller.set(&#39;content&#39;, undefined);
+
+        App.Session.find(&#39;current&#39;)
+            .then (session) -&gt;
+                session.deleteRecord()
+                controller.store.commit()
+
+        @transitionTo(&#39;index&#39;)
+)
+</code></pre><h3 id="update-navigation-links">Update navigation links</h3>
+<p>We can add a link to this new route in our <code>application.hbs</code> layout template.</p>
+<p>templates/application.hbs</p>
+<pre><code>...
+{{#if currentUser.isSignedIn}}
+    Logged in as {{currentUser.email}}
+    ({{#linkTo sessions.destroy}}Logout{{/linkTo}})
+{{else}}
+    {{#linkTo users.new}}Sign Up{{/linkTo}} |
+    {{#linkTo sessions.new}}Login{{/linkTo}}
+{{/if}}
+...
+</code></pre><h3 id="one-last-update-to-the-rails-api">One last update to the Rails API</h3>
+<p>In order to support the two server calls we should return <code>current_user</code> whenever <code>sessions/current</code> (or anything, for that matter) is requested, so we add this to the <code>show</code> action.</p>
+<p>/app/controllers/sessions_controller.rb</p>
+<pre><code>def show
+    respond_to do |format|
+        format.html
+        format.json { render json: { session: current_user }, status: :accepted }
+    end
+end
+</code></pre><p>Then to completely support the <code>DELETE</code> of the session, we need a familiar JSON response at the <code>destroy</code> action. No data is required; just a simple accepted response.</p>
+<p>/app/controllers/sessions_controller.rb</p>
+<pre><code>def destroy
+    session[:user_id] = nil
+
+    respond_to do |format|
+        format.html { redirect_to :root, notice: &quot;Logged out!&quot; }
+        format.json { render json: {}, status: :accepted }
+    end
+end
+</code></pre><h2 id="you-re-done-">You&#39;re done!</h2>
+<p>You should be able to create users, log them in and log them out all within the context of your single-page Ember application.</p>
+<h2 id="a-working-example">A working example</h2>
+<p>I have these steps put together in a <a href="https://github.com/cbosco/tickets-together/tree/just_authentication">working Rails app</a> that hopefully answers any remaining questions (Nothing like working code!)</p>
+<h2 id="thanks">Thanks</h2>
+<p>A great deal of this guide is adapted from <a href="http://pivotallabs.com/playing-with-ember-js-and-devise/">Playing with Ember.js and Devise</a> which walks through a similar set up on top of the <a href="https://github.com/plataformatec/devise">Devise</a> authentication gem. </p>
+
+    </div>
+
+        </div>
+
+    </div>
+
+            <footer class="inverse">
+
+            <div class="row">
+                <div class="small-12 columns">
+
+        <p class="right">
+            <a href="#">
+                <i class="fa fa-angle-up"></i> top
+            </a>
+        </p>
+        <div class="name">
+            <a href="/"><amp-img width="98" height="80" src="/images/logo-footer.png"></a>
+        </div>
+
+<div class="place">
+          <h2><a href="/posts.html">Blog</a></h2>
+        </div>
+        <div class="place">
+        </div>
+
+          <h2>Elsewhere</h2>
+            <ul class="no-bullet">
+              <li class="social-icon">
+                  <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                      cbosco
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                  @cbsides
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://instagram.com/chrisbosco" title="Instagram">
+
+                    <i class="fa fa-instagram"></i>
+                      chrisbosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                  <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+
+                    <i class="fa fa-linkedin-square"></i>
+                  Chris Bosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                  contact@chrisbosco.com
+                  </a>
+              </li>
+            </ul>
+          <p class="copyright">
+            &copy; 2007-2016 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
+          </p>
+
+                </div><!-- .row -->
+            </div><!-- .small-12 columns -->
+        </footer>
+
+        <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-4850138"
+          },
+          "triggers": {
+            "defaultPageview": {
+              "on": "visible",
+              "request": "pageview"
+            }
+          }
+        }
+        </script>
+        </amp-analytics>
+
+
+</body>
+</html>
+

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" ⚡>
+<head>
+    <meta charset="utf-8">
+<link rel="canonical" href="/posts/Spellcheck-Rich-Text-with-GoogieSpell.html">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+
+<title>Spellcheck Rich Text with GoogieSpell</title>
+
+<meta name="author" content="Chris Bosco">
+<link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
+
+  <meta name="keywords" content="chris bosco, chrisbosco, cbsides, cbosco, web, web app, designer, developer, portfolio, css, javascript, html, html5, user interface, ui, user experience, ux, experience design, interaction design">
+  <meta name="copyright" content="copyright 2007-20014 chrisbosco.com">
+
+<link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet" type="text/css">
+<link href="/assets/app.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body>
+    <div class="contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+        <li class="name">
+            <a href="/"><amp-img width="61" height="50" src="/images/logo-masthead.png"></a>
+        </li>
+    </ul>
+
+    <section class="top-bar-section">
+        <div class="right">
+            <span class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+            </span>
+            <span class="social-icon">
+                <a href="http://instagram.com/chrisbosco" title="Instagram">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </span>
+        </div>
+    </section>
+
+    </nav>
+</div>
+
+    <div class="row">
+        <div class="small-12 columns">
+        
+            <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2010-8-29
+                </a>
+                <a class="current">Spellcheck Rich Text with GoogieSpell</a>
+            </nav>
+        
+        </div>
+    </div>
+    <div class="heading text-center">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1>
+                    Spellcheck Rich Text with GoogieSpell
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript, Widgets
+            </h6>
+        </div>
+    </div>
+
+
+        
+
+    <div class="row">
+        <div class="small-12 columns">
+
+    <div class="project-summary-detail post-detail">
+        <p>In an earlier post, I explained how to modify the GoogieSpell JavaScript
+spellchecker to <a href="/Spellcheck-HTML-Inline-with-GoogieSpell.html">work with text in HTML
+tags</a>. For an
+introduction to Orangoo Labs&#39;
+<a href="http://orangoo.com/labs/GoogieSpell/">GoogieSpell</a>, refer to that post.
+Based on feedback I received, it appeared worthwhile to show how to
+spellcheck rich text on demand. I&#39;ll explain how that&#39;s done with a
+popular editor, <a href="http://sourceforge.net/projects/fckeditor/">FCKEditor</a>.</p>
+<p>In retrospect, I shouldn&#39;t be surprised as this is a much more useful
+application of GoogieSpell. In fact,
+<a href="http://www.spellchecker.net/v3/products/scayt.html">SCAYT</a>, a similar
+tool to GoogieSpell (but requiring a license), has found its way into
+<a href="http://ckeditor.com/">CKEditor</a>, the successor to FCKEditor. As a
+bonus, I&#39;ve included JavaScript that will integrate GoogieSpell with
+CKEditor, but I&#39;ll limit the detail here to the FCKEditor
+implementation.</p>
+<p>Before we dive in, let&#39;s see this in action:</p>
+<p><span id="spell_container"></span></p>
+<textarea id="FCKeditor1" name="FCKeditor1" cols="40" rows="6">This is <b>the</b> initial value.  And a typpo.</textarea>
+
+<p><a href="#Download">Download files</a></p>
+<p>The simplest way to describe how this works is that there are event
+listeners on both objects with references to both GoogieSpell and
+FCKEditor on every function call. This way, when something happens to
+GoogieSpell you can make changes to the editor, and vice versa.</p>
+<h2 id="fckeditor-first-googiespell-second">FCKEditor First, GoogieSpell Second</h2>
+<p>First, we build FCKEditor around a textarea for proper progressive
+enhancement (although you can instantiate the editor any way you wish).</p>
+<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">var</span> oFCKeditor = <span class="keyword">new</span> FCKeditor(<span class="string">'FCKeditor1'</span>);
+  oFCKeditor.ReplaceTextarea();
+};
+</code></pre>
+<p>FCKEditor calls the <code>FCKeditor_OnComplete</code> function once it&#39;s done its
+thing, and it&#39;s at this point we intercept, and instantiate GoogieSpell.
+The &quot;textarea&quot; we decorate with GoogieSpell is FCKEditor&#39;s editor
+document, which happens to be nested within an iframe element (the
+source of much fun later).</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">FCKeditor_OnComplete</span>(<span class="params">editorObj</span>)
+</span>{
+  <span class="keyword">var</span> editorDocument = editorObj.EditingArea.Document,
+      googie = <span class="keyword">new</span> GoogieSpell(<span class="string">'/demo/googiespell/'</span>, <span class="string">'/demo/googiespell/sendReq.php?lang='</span>);
+  googie.setSpellContainer(<span class="string">'spell_container'</span>);
+  googie.decorateTextarea(editorDocument.body);
+}
+</code></pre>
+<h2 id="i-m-spellchecking-">I&#39;m Spellchecking!</h2>
+<p>GoogieSpell fires a state change event when you check spelling. If we
+pass a reference to the FCKEditor, we can alter it when we perform a
+spellcheck.</p>
+<pre><code class="lang-javascript">googie.spelling_state_observer = <span class="function"><span class="keyword">function</span>(<span class="params">state, googie</span>) </span>{
+  onGoogieStateChange(state, googie, editorObj);
+};
+</code></pre>
+<p>Feel free to act on the editor in other ways here. I like to disable the
+editor&#39;s buttons to reinforce that this isn&#39;t a fully editable state
+while spellchecking.</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">onGoogieStateChange</span>(<span class="params">state, googie, editorObj</span>) </span>{
+  <span class="keyword">if</span> (state === <span class="string">"checking_spell"</span>) {
+    editorObj.ToolbarSet.Disable();
+  }
+  <span class="keyword">else</span> <span class="keyword">if</span> (state === <span class="string">"spell_check"</span>){  <span class="comment">//inactive</span>
+    editorObj.ToolbarSet.Enable();
+  }
+}
+</code></pre>
+<h2 id="build-it-where-you-use-it">Build It Where You Use It</h2>
+<p>A small, yet important detail is that GoogieSpell expects to be creating
+its components and adding them in the same document, but now we need to
+account for elements inside and outside of an iframe. Some browsers (by
+Microsoft) won&#39;t allow you to create an element and then append it to a
+nested document within an iframe on your page, even if they&#39;re both of
+the same domain/origin.</p>
+<p>Unfortunately, this means we need to modify GoogieSpell&#39;s script
+directly. By default GoogieSpell uses the <code>AJS.DIV</code> and <code>AJS.SPAN</code> to
+create its elements. These functions shortcut eventually to
+<code>document.createElement</code> which refers to the parent document
+(<code>window.top.document</code>). Instead, we can call a new function,
+<code>createInFrame</code>, that uses the iframe&#39;s own document to do the element
+building.</p>
+<pre><code class="lang-javascript">googie.createInFrame = <span class="function"><span class="keyword">function</span>(<span class="params">tag, className</span>) </span>{
+  <span class="keyword">var</span> o = editorDocument.createElement(tag);
+  <span class="keyword">if</span> (className)
+    o.className = className;
+  <span class="keyword">return</span> o;
+};
+</code></pre>
+<h2 id="look-feel">Look &amp; Feel</h2>
+<p>Now we should actually be able to spellcheck without any errors. But
+things are still pretty clunky. For one, GoogieSpell&#39;s CSS isn&#39;t going
+to cascade into your editor&#39;s iframe document. The cleanest way to fix
+this would be to use an <code>@import</code> statement in FCKEditor&#39;s
+editor_area.css file. However, I have a quick and dirty approach that
+you can use when instantiating GoogieSpell.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> googieCSS = editorDocument.createElement(<span class="string">'link'</span>);
+googieCSS.setAttribute(<span class="string">'rel'</span>, <span class="string">'stylesheet'</span>);
+googieCSS.setAttribute(<span class="string">'type'</span>, <span class="string">'text/css'</span>);
+googieCSS.setAttribute(<span class="string">'href'</span>, <span class="string">'/demo/googiespell/googiespell.css'</span>);
+editorDocument.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(googieCSS);
+</code></pre>
+<p>GoogieSpell&#39;s edit layer also has some hard-coded inline styles and
+dimensions that aren&#39;t going to look quite right. These should probably
+be in GoogieSpell&#39;s CSS file anyway, but let&#39;s account for them by
+creating an opportunity to override them. Again we resort to editing
+GoogieSpell&#39;s script, this time adding a new listener:
+<code>edit_layer_ready_observer</code>. Follow the pattern of the state change
+observer and add a reference to both GoogieSpell and your FCKEditor.</p>
+<pre><code class="lang-javascript">googie.edit_layer_ready_observer = <span class="function"><span class="keyword">function</span>(<span class="params">googie</span>) </span>{
+  onGoogieLayerReady(googie, editorObj);
+};
+</code></pre>
+<p>This callback function simply adds appropriate styles to GoogieSpell&#39;s
+edit layer so that it fills the FCKEditor and matches visually. It&#39;s
+also a jumping off point for further customization.</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">onGoogieLayerReady</span>(<span class="params">googie, editorObj</span>) </span>{
+  <span class="keyword">var</span> layerStyle = googie.edit_layer.style;
+  layerStyle.padding = <span class="string">"5px"</span>; <span class="comment">// match FCKeditor padding</span>
+  layerStyle.border = <span class="string">'none'</span>;
+  layerStyle.fontFamily = <span class="string">"Arial,Verdana,sans-serif"</span>;
+  layerStyle.fontSize = <span class="string">"12px"</span>;
+
+  <span class="keyword">if</span> (AJS.isIe()) {
+    AJS.setHeight(googie.edit_layer, editorObj.EditingArea.IFrame.offsetHeight);
+  } <span class="keyword">else</span> {
+    AJS.setHeight(googie.edit_layer, <span class="string">'auto'</span>);  
+  }
+  AJS.setWidth(googie.edit_layer, <span class="string">'auto'</span>);
+}
+</code></pre>
+<p>The final change comes when we click a mis-spelled word and bring up
+GoogieSpell&#39;s suggestions. The window needs to be offset based on the
+position of the FCKEditor&#39;s iframe. Following the previous change, we
+add yet another listener, <code>editor_window_ready_observer</code>, along with a
+new callback function.</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">onGoogieSuggestionsReady</span>(<span class="params">googie, editorObj</span>) </span>{
+  <span class="keyword">var</span> w = googie.error_window,
+      w_pos = AJS.absolutePosition(w),
+      editorFrame = editorObj.LinkedField.previousSibling;
+
+  <span class="keyword">if</span> (editorFrame) {
+    <span class="keyword">var</span> e_pos = AJS.absolutePosition(editorFrame),
+        toolBarHeight = editorObj.ToolbarSet._TargetElement.offsetHeight;
+    w_pos.y += (e_pos.y + toolBarHeight);
+    w_pos.x += e_pos.x;
+  }  
+
+  AJS.setTop(w, w_pos.y);
+  AJS.setLeft(w, w_pos.x);
+
+  <span class="comment">//  Adjust IE's iframe shim to match, if present</span>
+  <span class="keyword">if</span> (googie.error_window_iframe) {
+    AJS.setTop(googie.error_window_iframe, w_pos.y);
+    AJS.setLeft(googie.error_window_iframe, w_pos.x);
+  }
+}
+</code></pre>
+<h2 id="ckeditor">CKEditor</h2>
+<p>And that pretty much wraps things up. Although FCKEditor is still
+popular, it was succeeded by CKEditor, a completely rewritten rich text
+editor. A similar approach can be followed (if you really want to — it
+comes with SCAYT). I&#39;ve included a template for CKEditor as well. It&#39;s a
+little rough around the edges and not working in IE6 or 7 but it calls
+the appropriate editor API functions where applicable. Of note is the
+fact that CKEditor actually comes packed with
+<a href="http://www.dojotoolkit.org/">Dojo</a>, for better or worse, so you have a
+lot at your disposal if you&#39;re familiar with the library.</p>
+<p><a name="Download"></a></p>
+<h2 id="download">Download</h2>
+<ul>
+<li>GoogieSpell rich text editor JavaScript: <a href="http://github.com/cbosco/googiespell/blob/master/googiespell_editor.js">googiespell_editor.js</a></li>
+<li>FCKEditor template:
+<a href="http://github.com/cbosco/googiespell/blob/master/fckeditor_template.js">fckeditor_template.js</a></li>
+<li>CKEditor template:
+<a href="http://github.com/cbosco/googiespell/blob/master/ckeditor_template.js">ckeditor_template.js</a></li>
+<li>Or, get all GoogieSpell files: <a href="http://github.com/cbosco/googiespell/tree/master">googiespell repo at
+github</a></li>
+</ul>
+<link href="http://projects.chrisbosco.com/blog/demo/googiespell/googiespell.css" rel="stylesheet" type="text/css" media="all" />
+
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/AJS.js"></script>
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/cookiesupport.js"></script>
+
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/googiespell_editor.js"></script>
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/fckeditor/fckeditor.js"></script>
+<script type="text/javascript" src="http://projects.chrisbosco.com/blog/demo/googiespell/fckeditor_template.js"></script>
+<script>
+document.domain = "chrisbosco.com";
+</script>
+
+    </div>
+
+        </div>
+
+    </div>
+
+            <footer class="inverse">
+
+            <div class="row">
+                <div class="small-12 columns">
+
+        <p class="right">
+            <a href="#">
+                <i class="fa fa-angle-up"></i> top
+            </a>
+        </p>
+        <div class="name">
+            <a href="/"><amp-img width="98" height="80" src="/images/logo-footer.png"></a>
+        </div>
+
+<div class="place">
+          <h2><a href="/posts.html">Blog</a></h2>
+        </div>
+        <div class="place">
+        </div>
+
+          <h2>Elsewhere</h2>
+            <ul class="no-bullet">
+              <li class="social-icon">
+                  <a href="https://github.com/cbosco" title="github">
+                    <i class="fa fa-github"></i>
+                      cbosco
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://twitter.com/cbsides" title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                  @cbsides
+                  </a>
+              </li>
+              <li class="social-icon">
+                  <a href="http://instagram.com/chrisbosco" title="Instagram">
+
+                    <i class="fa fa-instagram"></i>
+                      chrisbosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                  <a href="http://www.linkedin.com/in/chrisbosco" title="LinkedIn">
+
+                    <i class="fa fa-linkedin-square"></i>
+                  Chris Bosco
+                  </a>
+              </li>
+
+              <li class="social-icon">
+                <a href="mailto:contact@chrisbosco.com">
+                    <i class="fa fa-envelope"></i>
+                  contact@chrisbosco.com
+                  </a>
+              </li>
+            </ul>
+          <p class="copyright">
+            &copy; 2007-2016 <a href="mailto:contact@chrisbosco.com">Chris Bosco</a>
+          </p>
+
+                </div><!-- .row -->
+            </div><!-- .small-12 columns -->
+        </footer>
+
+        <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-4850138"
+          },
+          "triggers": {
+            "defaultPageview": {
+              "on": "visible",
+              "request": "pageview"
+            }
+          }
+        }
+        </script>
+        </amp-analytics>
+
+
+</body>
+</html>
+

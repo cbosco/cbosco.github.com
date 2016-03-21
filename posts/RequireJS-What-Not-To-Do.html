@@ -2,7 +2,7 @@
 <html lang="en" ⚡>
 <head>
     <meta charset="utf-8">
-<link rel="canonical" href="/projects/2009-cbsides/">
+<link rel="canonical" href="/posts/RequireJS-What-Not-To-Do.html">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -12,7 +12,7 @@
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 
 
-<title>cbsides</title>
+<title>RequireJS: What Not To Do</title>
 
 <meta name="author" content="Chris Bosco">
 <link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
@@ -66,14 +66,15 @@
     </nav>
 </div>
 
-    
     <div class="row">
         <div class="small-12 columns">
         
             <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
-                <a href="/projects.html">Projects</a>
-                <a class="unavailable" >2009</a>
-                <a class="current">cbsides</a>
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2011-3-26
+                </a>
+                <a class="current">RequireJS: What Not To Do</a>
             </nav>
         
         </div>
@@ -81,176 +82,86 @@
     <div class="heading text-center">
         <div class="row">
             <div class="small-12 columns">
-            
                 <h1>
-                    
-                    cbsides
+                    RequireJS: What Not To Do
                 </h1>
-
-            
             </div>
         </div>
     </div>
 
-    
-        
-
-            <div class="featured texture">
-                <div class="row collapse">
-                    <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
-                        <amp-carousel width=400 height=300 layout=responsive type=slides controls>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides.png">
-                            </a>
-
-                        </div>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides-listing.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides-listing.png">
-                            </a>
-
-                        </div>
-                        
-                        </amp-carousel>
-                    </div>
-                </div>
-            </div>
-
-        
-    
     <div class="row">
-        <div class="small-12 large-7 columns">
-    
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript
+            </h6>
+        </div>
+    </div>
+
 
         
-    
 
+    <div class="row">
+        <div class="small-12 columns">
 
-    <div class="project-summary-detail">
-        <p>My blog covers topics related to front-end web development and design,
-with occasional tutorials and demos. The inspiration comes from the
-helpful niche sites that were indispensable to me in my first years as a
-developer, and I hoped to give back to that community. Crafting every
-post also has the added benefit of coalescing my learnings for my own
-record.</p>
-<p>The blog is custom-built and hand-coded from front to back on the
-<a href="http://codeigniter.com/">CodeIgniter MVC framework</a>. Although I was
-using the MVC pattern at the time for work, building every layer of this
-site (rather than just focusing on the client-side) helped me to fully
-understand it.</p>
-<p>Because CodeIgniter is based on PHP, I&#39;ve found it relatively easy to
-port over plugins from popular platforms like WordPress, such as the
-very useful <a href="http://akismet.com/">Akismet</a>.</p>
+    <div class="project-summary-detail post-detail">
+        <p>As with most things, using RequireJS wrong can be worse than not using
+it at all.</p>
+<p><a href="http://requirejs.org/">RequireJS</a> is a modular script loader that lets
+you pull in multiple JavaScript files in an optimized way that cheats a
+few rules we&#39;ve been used to when downloading resources in the
+traditional way on the Web. Not only does RequireJS have great API
+documentation, its <a href="http://requirejs.org/docs/why.html">Why</a> page is a
+great read, and explains how they&#39;ve arrived at their approach of using
+<code>head.appendChild(script)</code> to load JavaScript asynchronously.</p>
+<p>After building <a href="http://chrisbosco.com/work/#/explore/the-shoshin-project">The Shoshin
+Project</a> (a
+simple single-page web app) which used <a href="http://code.google.com/closure/">Google
+Closure</a> to bundle multiple JavaScript
+files/modules into a single request, the concept evolved into a more
+interactive, multiple-page site. As a team we decided to try out
+RequireJS on the new site, hoping to carry on the modular approach used
+in the original site without being forced to include all possible
+combinations of JavaScript modules on every page load.</p>
+<p>In our first dive into things, we put our page enhancements like
+overlays, autocomplete, and so on into the RequireJS modular system.
+Shortly into it we noticed some strange behavior where it looked like
+some of our slower external scripts were blocking even the most simple
+page interactions from livening up.</p>
+<p>The (obvious in hindsight) breakthrough for me came in the realization
+that externally hosted, third-party scripts can (and should) be loaded
+using RequireJS. Traditionally, we did the most basic optimization of
+putting our <code>script</code> tags near the end of the <code>body</code> tag so they don&#39;t
+block page render, and then went the added step of putting any analytics
+and/or externally hosted scripts below the application scripts so they
+get parsed last and don&#39;t block page functionality.</p>
+<p>What seems to have happened is RequireJS can&#39;t actually start executing
+scripts until all synchronous script calls are done, as there could be
+additional definitions it has yet to parse. So while we thought saving
+our third party scripts for the end of the document was a good idea,
+they were actually executing first, completely throwing a wrench into
+things. Once it was clear that they can be easily incorporated into the
+RequireJS dependency model, it was easy enough to create one-line
+definitions for them and throw those at the end of our global RequireJS
+definitions. No more blocking!</p>
+<p>For example:</p>
+<pre><code class="lang-javascript">define(<span class="string">'facebook'</span>, [<span class="string">'http://connect.facebook.net/en_US/all.js'</span>]);
+</code></pre>
+<p>The final solution, in terms of explicit script tags:</p>
+<ol>
+<li><a href="http://www.modernizr.com/">Modernizr</a> (in <code>head</code>)</li>
+<li><a href="http://jquery.com/">jQuery</a> (via <a href="http://code.google.com/apis/libraries/devguide.html#jquery">Google
+CDN</a>
+with a <code>document.write()</code> <a href="http://html5boilerplate.com/">fallback to
+local</a>)</li>
+<li><a href="http://requirejs.org/">RequireJS</a></li>
+<li>Global require definitions (via RequireJS)</li>
+<li>Page specific require calls (via RequireJS)</li>
+</ol>
 
     </div>
 
-    
-        
-    
         </div>
 
-        <div class="small-12 large-5 columns">
-    
-
-        
-
-        
-            
-            <!--
-            <span class="role-badge">
-                <i title="Design" class="fa fa-pencil-square-o"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-pencil-square-o"></i>
-                Design
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        Visual design
-                    </li>
-                
-                    <li>
-                        Information architecture
-                    </li>
-                
-                    <li>
-                        Interaction design
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Front-end development" class="fa fa-code"></i>
-            </span>
-            -->
-            <h6>
-                <i class="fa fa-code"></i>
-                Front-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        HTML
-                    </li>
-                
-                    <li>
-                        CSS
-                    </li>
-                
-                    <li>
-                        JavaScript, jQuery
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Back-end development" class="fa fa-cubes"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-cubes"></i>
-                Back-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        PHP, CodeIgniter
-                    </li>
-                
-                    <li>
-                        MySQL
-                    </li>
-                
-            </ul>
-            
-        
-        
-
-    
-        </div>
     </div>
 
             <footer class="inverse">

@@ -2,7 +2,7 @@
 <html lang="en" ⚡>
 <head>
     <meta charset="utf-8">
-<link rel="canonical" href="/projects/2009-cbsides/">
+<link rel="canonical" href="/posts/Sorting-jQuery-DOM-Elements.html">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -12,7 +12,7 @@
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 
 
-<title>cbsides</title>
+<title>Sorting jQuery DOM Elements</title>
 
 <meta name="author" content="Chris Bosco">
 <link rel="author" href="https://plus.google.com/107516626305634995395/posts"/>
@@ -66,14 +66,15 @@
     </nav>
 </div>
 
-    
     <div class="row">
         <div class="small-12 columns">
         
             <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
-                <a href="/projects.html">Projects</a>
-                <a class="unavailable" >2009</a>
-                <a class="current">cbsides</a>
+                <a href="/posts.html">Blog Posts</a>
+                <a class="unavailable" >
+                    2010-3-28
+                </a>
+                <a class="current">Sorting jQuery DOM Elements</a>
             </nav>
         
         </div>
@@ -81,176 +82,94 @@
     <div class="heading text-center">
         <div class="row">
             <div class="small-12 columns">
-            
                 <h1>
-                    
-                    cbsides
+                    Sorting jQuery DOM Elements
                 </h1>
-
-            
             </div>
         </div>
     </div>
 
-    
-        
-
-            <div class="featured texture">
-                <div class="row collapse">
-                    <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
-                        <amp-carousel width=400 height=300 layout=responsive type=slides controls>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides.png">
-                            </a>
-
-                        </div>
-                        
-                        <div>
-
-                            <a target="_blank" href="original-images/cbsides-listing.png">
-                                <amp-img 
-                                placeholder
-                                layout="responsive"
-                                width="616" 
-                                height="370" 
-                                src="cbsides-listing.png">
-                            </a>
-
-                        </div>
-                        
-                        </amp-carousel>
-                    </div>
-                </div>
-            </div>
-
-        
-    
     <div class="row">
-        <div class="small-12 large-7 columns">
-    
+        <div class="small-12 columns">
+            <h6 class="text-center post-detail-tags">
+                JavaScript, jQuery
+            </h6>
+        </div>
+    </div>
+
 
         
-    
 
+    <div class="row">
+        <div class="small-12 columns">
 
-    <div class="project-summary-detail">
-        <p>My blog covers topics related to front-end web development and design,
-with occasional tutorials and demos. The inspiration comes from the
-helpful niche sites that were indispensable to me in my first years as a
-developer, and I hoped to give back to that community. Crafting every
-post also has the added benefit of coalescing my learnings for my own
-record.</p>
-<p>The blog is custom-built and hand-coded from front to back on the
-<a href="http://codeigniter.com/">CodeIgniter MVC framework</a>. Although I was
-using the MVC pattern at the time for work, building every layer of this
-site (rather than just focusing on the client-side) helped me to fully
-understand it.</p>
-<p>Because CodeIgniter is based on PHP, I&#39;ve found it relatively easy to
-port over plugins from popular platforms like WordPress, such as the
-very useful <a href="http://akismet.com/">Akismet</a>.</p>
+    <div class="project-summary-detail post-detail">
+        <p>While updating the jQuery version referenced by a website I was working
+on, I found an interesting trick you can do with collections of DOM
+elements as of <a href="http://blog.jquery.com/2009/02/20/jquery-132-released/">jQuery
+1.3.2</a> (February
+2009). Prior to this release, selecting a collection of DOM elements
+would return a plain old JavaScript object. Now, you get an array.</p>
+<p>This may not jump out at you as exciting in and of itself, but for me
+the ability to use array methods on these collections was really
+helpful. By writing a simple array sort method, I was able to grab one
+giant alphabetically ordered list of items from any number of smaller,
+categorized lists on my page, and then display that list in different
+ways on the fly. Here is a simple example of how to set this up.</p>
+<p>Markup:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"ArraySource"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Category 1<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">li</span> <span class="attr">rel</span>=<span class="string">"Category_1"</span> <span class="attr">name</span>=<span class="string">"Item_1"</span>&gt;</span>
+                Item 1
+            <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">li</span> <span class="attr">rel</span>=<span class="string">"Category_1"</span> <span class="attr">name</span>=<span class="string">"Item_2"</span>&gt;</span>
+                Item 2
+            <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+            ...
+        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Category 2<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">ul</span>&gt;</span>...<span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+    ...
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+</code></pre>
+<p>JavaScript:</p>
+<pre><code class="lang-javascript"><span class="comment">/*    ArrayTest.list will be an alpha-sorted DOM collection    */</span>
+<span class="keyword">var</span> ArrayTest = {
+    setup: <span class="function"><span class="keyword">function</span>(<span class="params">source</span>) </span>{
+        <span class="keyword">this</span>.list = $(source);
+        <span class="keyword">try</span> { <span class="keyword">this</span>.list.sort(<span class="keyword">this</span>.alphaSort); } <span class="keyword">catch</span>(e) { <span class="comment">/*legacy javascript; sort unsupported*/</span> }
+    },
+    alphaSort: <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>{
+        <span class="keyword">var</span> A = a.getAttribute(<span class="string">'name'</span>).toUpperCase();    <span class="comment">// Make comparison case insensitive</span>
+        <span class="keyword">var</span> B = b.getAttribute(<span class="string">'name'</span>).toUpperCase();
+        <span class="keyword">if</span> (A &lt; B) { <span class="keyword">return</span> <span class="number">-1</span>; }
+        <span class="keyword">else</span> <span class="keyword">if</span> (A &gt; B) { <span class="keyword">return</span> <span class="number">1</span>; }
+        <span class="keyword">else</span> { <span class="keyword">return</span> <span class="number">0</span>; }
+    }
+};
+$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    ArrayTest.setup(<span class="string">'#ArraySource ul li'</span>);
+    <span class="comment">// ...Do something with ArrayTest.list ...</span>
+});
+</code></pre>
+<p>This way, you can present the items categorized in a default, accessible
+way in the markup, and then with a few lines of JavaScript and jQuery,
+you&#39;ve got the complete list at your disposal, sorted alphabetically,
+and ready to be re-categorized or filtered along any dimension desired,
+through whatever UI widget/pattern is preferred. This can be
+particularly useful when you want the page to contain a lot of
+information at the onset for SEO concerns, but prefer a more dynamic
+experience for users.</p>
 
     </div>
 
-    
-        
-    
         </div>
 
-        <div class="small-12 large-5 columns">
-    
-
-        
-
-        
-            
-            <!--
-            <span class="role-badge">
-                <i title="Design" class="fa fa-pencil-square-o"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-pencil-square-o"></i>
-                Design
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        Visual design
-                    </li>
-                
-                    <li>
-                        Information architecture
-                    </li>
-                
-                    <li>
-                        Interaction design
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Front-end development" class="fa fa-code"></i>
-            </span>
-            -->
-            <h6>
-                <i class="fa fa-code"></i>
-                Front-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        HTML
-                    </li>
-                
-                    <li>
-                        CSS
-                    </li>
-                
-                    <li>
-                        JavaScript, jQuery
-                    </li>
-                
-            </ul>
-            
-            
-            <!--
-            <span class="role-badge">
-                <i title="Back-end development" class="fa fa-cubes"></i>
-            </span>
-            -->
-
-            <h6>
-                <i class="fa fa-cubes"></i>
-                Back-end development
-            </h6>
-            <ul class="square">
-                
-                    <li>
-                        PHP, CodeIgniter
-                    </li>
-                
-                    <li>
-                        MySQL
-                    </li>
-                
-            </ul>
-            
-        
-        
-
-    
-        </div>
     </div>
 
             <footer class="inverse">
